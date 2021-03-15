@@ -12,7 +12,9 @@ namespace Server.Mapping
     {
         public ModelToResourceProfile()
         {
-            CreateMap<Purchase, ProductResource>();
+            CreateMap<Purchase, PurchaseResource>();
+            CreateMap<Company, CompanyResource>();
+            CreateMap<Product, ProductResource>();
         }
     }
 }
