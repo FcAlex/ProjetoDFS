@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Server.Domains.Models
 {
-    public class Purchase : ICopyable<Purchase>
+    public class Purchase
     {
         public int Id { get; set; }
         public float Value { get; set; }
@@ -21,20 +21,5 @@ namespace Server.Domains.Models
         public int UserId { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
-
-        public void CopyTo(Purchase item)
-        {
-            item.Value = Value;
-            item.Date = Date;
-            item.PaymentMethod = PaymentMethod;
-            item.Status = Status;
-            item.Observation = Observation;
-            item.Cep = Cep;
-            item.Address = Address;
-            item.User = User.Clone() as User;
-            item.UserId = UserId;
-            item.ProductId = ProductId;
-            item.Product = Product.Clone() as Product;
-        }
     }
 }

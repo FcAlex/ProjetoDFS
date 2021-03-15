@@ -12,7 +12,6 @@ namespace Server.Mapping
     {
         public ModelToResourceProfile()
         {
-            CreateMap<User, UserResource>();
             CreateMap<Purchase, ProductResource>();
         }
     }
