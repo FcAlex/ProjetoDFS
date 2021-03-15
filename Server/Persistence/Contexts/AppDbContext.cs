@@ -21,7 +21,7 @@ namespace Server.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            createTableUser(builder);
+            //createTableUser(builder);
             //createTableCompany(builder);
             CreateTablePurchase(builder);
             //createTableProduct(builder);
@@ -54,16 +54,37 @@ namespace Server.Persistence.Contexts
 
             entity.Property(purchase => purchase.Address).IsRequired().HasMaxLength(50);
 
-            
-
             SeedPurchase(entity);
 
         }
 
         private static void SeedPurchase(EntityTypeBuilder<Purchase> entity)
         {
-            entity.HasData(
-                new Purchase { Id=101, Address="Rua do Bobos, nr. 0", Cep="63640-000", Date=DateTime.Now, PaymentMethod = PaymentMethod.InCash, Status = PurchaseStatus.Confirmed, UserId = 101, Observation = "n.a" }
+            entity.HasData
+                (
+                    new Purchase 
+                    { 
+                        Id=101, 
+                        Address="Rua do Bobos, nr. 0", 
+                        Cep="61100-000", Date=DateTime.Now, 
+                        PaymentMethod = PaymentMethod.InCash, 
+                        Status = PurchaseStatus.Confirmed, 
+                        UserId = 101,
+                        Observation = "n.a",
+                        ProductId = 102 
+                    },
+                    new Purchase
+                    {
+                        Id = 102,
+                        Address = "Rua A, nr. 545",
+                        Cep = "105120-000",
+                        Date = DateTime.Now,
+                        PaymentMethod = PaymentMethod.DebitCard,
+                        Status = PurchaseStatus.Done,
+                        UserId = 102,
+                        Observation = "n.a",
+                        ProductId = 101
+                    }
                 );
         }
 
@@ -74,31 +95,12 @@ namespace Server.Persistence.Contexts
 
         private static void createTableUser(ModelBuilder builder)
         {
-            var entity = builder.Entity<User>();
-            entity.ToTable("Users");
-
-            entity.HasKey(user => user.Id);
-            entity.Property(user => user.Id).IsRequired().ValueGeneratedOnAdd();
-
-            entity.Property(user => user.Name).IsRequired().HasMaxLength(30);
-
-            entity.HasIndex(user => user.Email).IsUnique();
-            entity.Property(user => user.Email).IsRequired().HasMaxLength(50);
-
-            entity.Property(user => user.Password).IsRequired().HasMaxLength(30);
-
-            entity.Property(user => user.Cpf).IsRequired();
-
-            entity.HasMany(user => user.Purchases).WithOne(purchase => purchase.User).HasForeignKey(purchase => purchase.UserId);
-
-            SeedUsers(entity);
+           //
         }
 
         private static void SeedUsers(EntityTypeBuilder<User> entity)
         {
-            entity.HasData(new User { Id = 100, Email = "alexsousa@gmail.com", Name = "Alex Sousa", Password = "123456789", Cpf = "00000000000" },
-                           new User { Id = 101, Email = "joaolucas@gmail.com", Name = "João Lucas", Password = "123456789", Cpf = "11111111111" }
-                           );
+            //
         }
     }
 }
