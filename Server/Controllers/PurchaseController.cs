@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using Server.Extensions;
 using System.Threading.Tasks;
+using Server.Resources.Saving;
 
 namespace Server.Controllers
 {
@@ -37,12 +38,12 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PutPurchase([FromBody] PurchaseResource resource)
+        public async Task<IActionResult> PutPurchase([FromBody] SavePurchaseResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var purchase = _mapper.Map<PurchaseResource, Purchase>(resource);
+            var purchase = _mapper.Map<SavePurchaseResource, Purchase>(resource);
             var result = await _purchaseService.SaveAsync(purchase);
 
             if (!result.Success)

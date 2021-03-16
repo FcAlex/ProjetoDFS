@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Server.Domains.Services.Communication
+namespace Server.Communication
 {
     public class PurchaseResponse : BaseResponse
     {
         public Purchase Purchase { get; set; }
 
-        private PurchaseResponse(bool success, string message, Purchase purchase) : base(success, message) { }
+        private PurchaseResponse(bool success, string message, Purchase purchase) : base(success, message) 
+        {
+            Purchase = purchase;
+        }
 
         public PurchaseResponse(Purchase purchase) : this(true, string.Empty, purchase) { }
 
