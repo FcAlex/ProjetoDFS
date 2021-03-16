@@ -1,7 +1,7 @@
-﻿using Server.Domains.Models;
+﻿using Server.Communication;
+using Server.Domains.Models;
 using Server.Domains.Repositories;
 using Server.Domains.Services;
-using Server.Domains.Services.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,9 +45,6 @@ namespace Server.Services
 
             if (existingUser == null)
                 return new PurchaseResponse("User not found");
-
-
-            purchase.CopyTo(existingUser);
 
             try
             {

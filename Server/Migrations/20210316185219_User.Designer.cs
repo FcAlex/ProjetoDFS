@@ -9,8 +9,8 @@ using Server.Persistence.Contexts;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210312195107_AddSeedPurchase")]
-    partial class AddSeedPurchase
+    [Migration("20210316185219_User")]
+    partial class User
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,7 +35,7 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Company");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("Server.Domains.Models.Product", b =>
@@ -63,7 +63,7 @@ namespace Server.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Server.Domains.Models.Purchase", b =>
@@ -112,21 +112,6 @@ namespace Server.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Purchases");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 101,
-                            Address = "Rua do Bobos, nr. 0",
-                            Cep = "63640-000",
-                            Date = new DateTime(2021, 3, 12, 16, 51, 6, 875, DateTimeKind.Local).AddTicks(5904),
-                            Observation = "n.a",
-                            PaymentMethod = (byte)3,
-                            ProductId = 0,
-                            Status = (byte)2,
-                            UserId = 101,
-                            Value = 0f
-                        });
                 });
 
             modelBuilder.Entity("Server.Domains.Models.User", b =>
@@ -141,43 +126,19 @@ namespace Server.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
-
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 100,
-                            Cpf = "00000000000",
-                            Email = "alexsousa@gmail.com",
-                            Name = "Alex Sousa",
-                            Password = "123456789"
-                        },
-                        new
-                        {
-                            Id = 101,
-                            Cpf = "11111111111",
-                            Email = "joaolucas@gmail.com",
-                            Name = "João Lucas",
-                            Password = "123456789"
-                        });
                 });
 
             modelBuilder.Entity("Server.Domains.Models.Product", b =>
@@ -200,7 +161,7 @@ namespace Server.Migrations
                         .IsRequired();
 
                     b.HasOne("Server.Domains.Models.User", "User")
-                        .WithMany("Purchases")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -216,11 +177,6 @@ namespace Server.Migrations
                 });
 
             modelBuilder.Entity("Server.Domains.Models.Product", b =>
-                {
-                    b.Navigation("Purchases");
-                });
-
-            modelBuilder.Entity("Server.Domains.Models.User", b =>
                 {
                     b.Navigation("Purchases");
                 });

@@ -34,11 +34,13 @@ namespace Server
             var connection = Configuration["ConnectionSqlite:SqliteConnectionString"];
 
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite(connection)
-            );
+            {
+                options.EnableDetailedErrors(true);
+                options.UseSqlite(connection);
+            });
 
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IPurchaseRepository, PurchaseRepository>();
             services.AddScoped<IPurchaseService, PurchaseService>();
             services.AddAutoMapper(typeof(Startup));

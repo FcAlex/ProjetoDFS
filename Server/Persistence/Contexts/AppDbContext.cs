@@ -12,24 +12,42 @@ namespace Server.Persistence.Contexts
     public class AppDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        //public DbSet<Company> Companies { get; set; }
+        public DbSet<Company> Companies { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
-        //public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {
+            
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
-            //createTableUser(builder);
-            //createTableCompany(builder);
+            CreateTableUser(builder);
+            CreateTableCompany(builder);
             CreateTablePurchase(builder);
-            //createTableProduct(builder);
+            CreateTableProduct(builder);
+            base.OnModelCreating(builder);
         }
 
-        private void createTableProduct(ModelBuilder builder)
+        private void CreateTableProduct(ModelBuilder builder)
         {
-            //
+            var entity = builder.Entity<Product>();
+            entity.ToTable("Products");
+
+            entity.HasKey(product => product.Id);
+            entity.Property(product => product.Id).IsRequired().ValueGeneratedOnAdd();
+
+            entity.Property(product => product.Name).IsRequired();
+
+            entity.Property(product => product.Description);
+
+            entity.Property(product => product.Value).IsRequired();
+
+            entity.Property(product => product.Observation);
+
+            entity.HasIndex(product => product.CompanyId).IsUnique(true);
+
+            entity.HasMany(product => product.Purchases).WithOne(purchase => purchase.Product).HasForeignKey(purchase => purchase.ProductId);
         }
 
         private static void CreateTablePurchase(ModelBuilder builder)
@@ -54,53 +72,46 @@ namespace Server.Persistence.Contexts
 
             entity.Property(purchase => purchase.Address).IsRequired().HasMaxLength(50);
 
-            SeedPurchase(entity);
+            entity.HasIndex(purchase => purchase.ProductId).IsUnique(true);
+
+            entity.HasIndex(purchase => purchase.UserId).IsUnique(true);
 
         }
 
-        private static void SeedPurchase(EntityTypeBuilder<Purchase> entity)
+        private void CreateTableCompany(ModelBuilder builder)
         {
-            entity.HasData
-                (
-                    new Purchase 
-                    { 
-                        Id=101, 
-                        Address="Rua do Bobos, nr. 0", 
-                        Cep="61100-000", Date=DateTime.Now, 
-                        PaymentMethod = PaymentMethod.InCash, 
-                        Status = PurchaseStatus.Confirmed, 
-                        UserId = 101,
-                        Observation = "n.a",
-                        ProductId = 102 
-                    },
-                    new Purchase
-                    {
-                        Id = 102,
-                        Address = "Rua A, nr. 545",
-                        Cep = "105120-000",
-                        Date = DateTime.Now,
-                        PaymentMethod = PaymentMethod.DebitCard,
-                        Status = PurchaseStatus.Done,
-                        UserId = 102,
-                        Observation = "n.a",
-                        ProductId = 101
-                    }
-                );
+            var entity = builder.Entity<Company>();
+
+            entity.ToTable("Companies");
+
+            entity.HasKey(company => company.Id);
+            entity.Property(company => company.Id).IsRequired().ValueGeneratedOnAdd();
+
+            entity.Property(company => company.FantasyName).IsRequired();
+
+            entity.Property(user => user.CompanyName).IsRequired();
+
+            entity.HasMany(company => company.Products).WithOne(product => product.Company).HasForeignKey(product => product.CompanyId);
         }
 
-        private void createTableCompany(ModelBuilder builder)
+        private static void CreateTableUser(ModelBuilder builder)
         {
-            
-        }
+            var entity = builder.Entity<User>();
 
-        private static void createTableUser(ModelBuilder builder)
-        {
-           //
-        }
+            entity.ToTable("Users");
 
-        private static void SeedUsers(EntityTypeBuilder<User> entity)
-        {
-            //
+            entity.HasKey(user => user.Id);
+            entity.Property(user => user.Id).IsRequired().ValueGeneratedOnAdd();
+
+            entity.Property(user => user.Name).IsRequired();
+
+            entity.Property(user => user.Email).IsRequired();
+
+            entity.Property(user => user.Password).IsRequired();
+
+            entity.Property(user => user.Cpf).IsRequired();
+
+            entity.HasMany(user => user.Purchases).WithOne(purchase => purchase.User).HasForeignKey(purchase => purchase.UserId);
         }
     }
 }

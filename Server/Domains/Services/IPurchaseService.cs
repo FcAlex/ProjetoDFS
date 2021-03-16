@@ -1,5 +1,5 @@
-﻿using Server.Domains.Models;
-using Server.Domains.Services.Communication;
+﻿using Server.Communication;
+using Server.Domains.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
