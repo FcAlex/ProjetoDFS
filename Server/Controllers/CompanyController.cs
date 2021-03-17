@@ -50,7 +50,7 @@ namespace Server.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            return Ok(_mapper.Map<Company, SaveCompanyResource>(result.Resource));
+            return Ok(_mapper.Map<Company, CompanyResource>(result.Resource));
         }
 
         [HttpPut("{id}")]
@@ -65,7 +65,7 @@ namespace Server.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            return Ok(_mapper.Map<Company, SaveCompanyResource>(result.Resource));
+            return Ok(_mapper.Map<Company, CompanyResource>(result.Resource));
         }
 
         [HttpDelete("{id}")]

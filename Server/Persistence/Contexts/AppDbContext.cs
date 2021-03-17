@@ -29,7 +29,7 @@ namespace Server.Persistence.Contexts
             base.OnModelCreating(builder);
         }
 
-        private void CreateTableProduct(ModelBuilder builder)
+        private static void CreateTableProduct(ModelBuilder builder)
         {
             var entity = builder.Entity<Product>();
             entity.ToTable("Products");
@@ -60,7 +60,8 @@ namespace Server.Persistence.Contexts
 
             entity.Property(purchase => purchase.Value).IsRequired();
 
-            entity.Property(purchase => purchase.Date).IsRequired().HasConversion(date => date, date => TimeZoneInfo.ConvertTimeToUtc(date));
+            //entity.Property(purchase => purchase.Date).IsRequired().HasConversion(date => date, date => TimeZoneInfo.ConvertTimeToUtc(date));
+            entity.Property(purchase => purchase.Date).IsRequired();
 
             entity.Property(purchase => purchase.PaymentMethod).IsRequired().HasColumnName("Payment Method");
 
@@ -72,13 +73,13 @@ namespace Server.Persistence.Contexts
 
             entity.Property(purchase => purchase.Address).IsRequired().HasMaxLength(50);
 
-            entity.HasIndex(purchase => purchase.ProductId).IsUnique(true);
+            entity.Property(purchase => purchase.ProductId).IsRequired();
 
-            entity.HasIndex(purchase => purchase.UserId).IsUnique(true);
+            entity.Property(purchase => purchase.UserId).IsRequired();
 
         }
 
-        private void CreateTableCompany(ModelBuilder builder)
+        private static void CreateTableCompany(ModelBuilder builder)
         {
             var entity = builder.Entity<Company>();
 
@@ -112,6 +113,8 @@ namespace Server.Persistence.Contexts
             entity.Property(user => user.Cpf).IsRequired();
 
             entity.HasMany(user => user.Purchases).WithOne(purchase => purchase.User).HasForeignKey(purchase => purchase.UserId);
+
+            entity.HasData(new User { Id=101, Cpf="000.000.000-00", Email="alex@example.com", Name="Alex Sousa", Password="12345678" });
         }
     }
 }
