@@ -24,8 +24,8 @@ namespace Server.Persistence.Contexts
         {
             CreateTableUser(builder);
             CreateTableCompany(builder);
-            CreateTablePurchase(builder);
             CreateTableProduct(builder);
+            CreateTablePurchase(builder);
             base.OnModelCreating(builder);
         }
 
@@ -48,6 +48,18 @@ namespace Server.Persistence.Contexts
             entity.HasIndex(product => product.CompanyId).IsUnique(true);
 
             entity.HasMany(product => product.Purchases).WithOne(purchase => purchase.Product).HasForeignKey(purchase => purchase.ProductId);
+
+            entity.HasData(
+                new Product 
+                {
+                    Id = 2,
+                    Value = 5.0f,
+                    CompanyId = 10,
+                    Description = "Salgadinho",
+                    Name = "Cheetos",
+                    Observation = "n.a",
+                }
+            );
         }
 
         private static void CreateTablePurchase(ModelBuilder builder)
@@ -77,6 +89,21 @@ namespace Server.Persistence.Contexts
 
             entity.Property(purchase => purchase.UserId).IsRequired();
 
+            entity.HasData (
+                new Purchase
+                {
+                    Id = 101,
+                    Address = "Rua dos Bobos",
+                    Cep="63.640-000",
+                    Date = DateTime.Now,
+                    Observation = "n.a",
+                    PaymentMethod = PaymentMethod.CreditCard,
+                    ProductId = 2,
+                    Status = PurchaseStatus.Canceled,
+                    UserId = 101,
+                    Value = 500.0f
+                }
+            );
         }
 
         private static void CreateTableCompany(ModelBuilder builder)
@@ -93,6 +120,8 @@ namespace Server.Persistence.Contexts
             entity.Property(user => user.CompanyName).IsRequired();
 
             entity.HasMany(company => company.Products).WithOne(product => product.Company).HasForeignKey(product => product.CompanyId);
+
+            entity.HasData(new Company { Cnpj="00.000.000/0001-99", CompanyName="Alex Sousa ME", FantasyName="FcoAlex", Id=10 });
         }
 
         private static void CreateTableUser(ModelBuilder builder)
