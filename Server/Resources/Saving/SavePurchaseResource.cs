@@ -34,5 +34,11 @@ namespace Server.Resources.Saving
         [Required]
         [StringLength(50)]
         public string Address { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
+
+        [Required]
+        public int ProductId { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Server.Domains.Models;
 using Server.Domains.Repositories;
 using Server.Domains.Services;
+using Server.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,14 @@ namespace Server.Services
 
         public Task<IEnumerable<Purchase>> ListAllAsync() => _purchaseRepository.ListAllAsync();
 
-        public async Task<Purchase> FindByIdAsync(int id) => await _purchaseRepository.FindByIdAsync(id);
+        public async Task<Purchase> FindByIdAsync(int id)
+        {
+
+            var purchase = await _purchaseRepository.FindByIdAsync(id);
+            Console.WriteLine(purchase.User);
+            Console.WriteLine(purchase.Product);
+            return purchase;
+        }
 
         public async Task<PurchaseResponse> SaveAsync(Purchase purchase)
         {

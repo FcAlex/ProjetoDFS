@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Server.Extensions;
 using System.Threading.Tasks;
 using Server.Resources.Saving;
+using Server.Services;
 
 namespace Server.Controllers
 {
@@ -44,6 +45,7 @@ namespace Server.Controllers
                 return BadRequest(ModelState.GetErrorMessages());
 
             var purchase = _mapper.Map<SavePurchaseResource, Purchase>(resource);
+
             var result = await _purchaseService.SaveAsync(purchase);
 
             if (!result.Success)

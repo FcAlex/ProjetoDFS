@@ -4,6 +4,7 @@ using Server.Persistence.Contexts;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System;
 
 namespace Server.Persistence.Repositories
 {
@@ -12,7 +13,13 @@ namespace Server.Persistence.Repositories
         public PurchaseRepository(AppDbContext context) : base(context) { }
 
         public async Task<IEnumerable<Purchase>> ListAllAsync() => await _context.Purchases.ToListAsync();
-        public async Task AddAsync(Purchase purchase) => await _context.Purchases.AddAsync(purchase);
+
+        public async Task AddAsync(Purchase purchase)
+        {
+            purchase.User = await _context.Users.FindAsync(purchase.UserId);
+            purchase.Product = await _context.Products.FindAsync(purchase.ProductId);
+            await _context.Purchases.AddAsync(purchase);
+        }
 
         public async Task<Purchase> FindByIdAsync(int id) => await _context.Purchases.FindAsync(id);
 
