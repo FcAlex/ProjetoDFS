@@ -27,8 +27,6 @@ namespace Server.Services
         {
 
             var purchase = await _purchaseRepository.FindByIdAsync(id);
-            Console.WriteLine(purchase.User);
-            Console.WriteLine(purchase.Product);
             return purchase;
         }
 
