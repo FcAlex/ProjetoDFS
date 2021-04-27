@@ -8,10 +8,12 @@ using System.Collections.Generic;
 using Server.Extensions;
 using System.Threading.Tasks;
 using Server.Resources.Saving;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Server.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize()]
     public class PurchaseController : Controller
     {
         private readonly IPurchaseService _purchaseService;

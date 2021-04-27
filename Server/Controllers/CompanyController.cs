@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Domains.Models;
 using Server.Domains.Services;
 using Server.Resources;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Server.Extensions;
 using Server.Resources.Saving;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Server.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize()]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyService;
