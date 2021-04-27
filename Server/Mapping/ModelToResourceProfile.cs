@@ -15,6 +15,7 @@ namespace Server.Mapping
             CreateMap<Purchase, PurchaseResource>();
             CreateMap<Company, CompanyResource>();
             CreateMap<Product, ProductResource>();
+            CreateMap<User, UserResource>();
         }
     }
 }

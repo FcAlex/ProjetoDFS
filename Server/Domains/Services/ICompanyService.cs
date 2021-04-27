@@ -11,7 +11,6 @@ namespace Server.Domains.Services
     {
         Task<IEnumerable<Company>> ListAllAsync();
         Task<Company> FindById(int id);
-
         Task<Response<Company>> SaveAsync(Company company);
         Task<Response<Company>> UpdateAsync(int id, Company company);
         Task<Response<Company>> DeleteAsync(int id);

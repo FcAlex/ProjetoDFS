@@ -10,8 +10,8 @@ namespace Server.Domains.Services
     {
         Task<IEnumerable<Purchase>> ListAllAsync();
         Task<Purchase> FindByIdAsync(int id);
-        Task<PurchaseResponse> SaveAsync(Purchase purchase);
-        Task<PurchaseResponse> UpdateAsync(int id, Purchase purchase);
-        Task<PurchaseResponse> DeleteAsync(int id);
+        Task<Response<Purchase>> SaveAsync(Purchase purchase);
+        Task<Response<Purchase>> UpdateAsync(int id, Purchase purchase);
+        Task<Response<Purchase>> DeleteAsync(int id);
     }
 }
