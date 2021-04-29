@@ -8,13 +8,14 @@ using System.Collections.Generic;
 using Server.Extensions;
 using System.Threading.Tasks;
 using Server.Resources.Saving;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
-using Server.Services;
 
 namespace Server.Controllers
 {
+    [EnableCors("AllowAllOrigins")]
     [Route("api/[controller]")]
-    [Authorize()]
+    [Authorize]
     public class PurchaseController : Controller
     {
         private readonly IPurchaseService _purchaseService;
@@ -53,7 +54,7 @@ namespace Server.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Purchase));
+            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Resource));
         }
 
         [HttpPut("{id}")]
@@ -68,7 +69,7 @@ namespace Server.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Purchase));
+            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Resource));
         }
 
         [HttpDelete("{id}")]
@@ -79,7 +80,7 @@ namespace Server.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Purchase));
+            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Resource));
         }
     }
 }

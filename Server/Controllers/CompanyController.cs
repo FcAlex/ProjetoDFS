@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 using Server.Extensions;
 using Server.Resources.Saving;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace Server.Controllers
 {
+    [EnableCors("AllowAllOrigins")]
     [Route("api/[controller]")]
-    [Authorize()]
+    [Authorize]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyService;

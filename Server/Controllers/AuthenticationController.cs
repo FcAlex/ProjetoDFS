@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 
 namespace Server.Controllers
 {
-    [Route("api/[controller]")]
     [AllowAnonymous]
+    [Route("api/[controller]")]
     public class AuthenticationController : Controller
     {
         private readonly IUserService _userService;
@@ -27,11 +27,6 @@ namespace Server.Controllers
             _configuration = configuration;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<ActionResult> VerifyLogin([FromBody] AuthUserResource resource)
         {
@@ -40,7 +35,7 @@ namespace Server.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState.GetErrorMessages());
 
-                var user = _mapper.Map<AuthUserResource, User>(resource);
+                var user = _mapper.Map<AuthUserResource, User>(resource); // HACK: converter antes para UserResource
                 var result = await _userService.FirstOrDefaultAsync(user.Email, user.Password);
 
                 if (result == null)

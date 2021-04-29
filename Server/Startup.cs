@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Server.Domains.Repositories;
 using Server.Domains.Services;
 using Server.Persistence.Contexts;
@@ -21,8 +20,9 @@ namespace Server
     {
         public IConfiguration Configuration { get; }
 
-        public Startup()
+        public Startup(IConfiguration configuration)
         {
+            //this.Configuration = configuration;
             this.Configuration = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables()
@@ -32,46 +32,58 @@ namespace Server
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Server", Version = "v1" });
-            });
 
+            services.AddControllers();
+
+            Cors(services);
             DbContext(services);
-            Scoped(services);
-            Singleton(services);
+            Scopes(services);
             Authentication(services);
 
             services.AddAutoMapper(typeof(Startup));
         }
 
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Server v1"));
             }
 
             app.UseStaticFiles();
-            app.UseCors();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
 
-        private static void Scoped(IServiceCollection services)
+        private static void Cors(IServiceCollection services)
         {
-            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowAllOrigins", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+        }
+
+        private static void Scopes(IServiceCollection services)
+        {
             services.AddScoped<ICompanyService, CompanyService>();
-            services.AddScoped<IPurchaseRepository, PurchaseRepository>();
             services.AddScoped<IPurchaseService, PurchaseService>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         private void Authentication(IServiceCollection services)
@@ -97,11 +109,6 @@ namespace Server
                        OnTokenValidated = _ => Task.CompletedTask
                    };
                });
-        }
-
-        private static void Singleton(IServiceCollection services)
-        {
-            services.AddSingleton<IUnitOfWork, UnitOfWork>();
         }
 
         private void DbContext(IServiceCollection services)
