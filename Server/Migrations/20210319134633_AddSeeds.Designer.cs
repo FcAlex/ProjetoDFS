@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Persistence.Contexts;
 
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210319134633_AddSeeds")]
+    partial class AddSeeds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,7 +143,7 @@ namespace Server.Migrations
                             Id = 101,
                             Address = "Rua dos Bobos",
                             Cep = "63.640-000",
-                            Date = new DateTime(2021, 4, 28, 20, 49, 20, 486, DateTimeKind.Local).AddTicks(363),
+                            Date = new DateTime(2021, 3, 19, 10, 46, 32, 553, DateTimeKind.Local).AddTicks(6773),
                             Observation = "n.a",
                             PaymentMethod = (byte)1,
                             ProductId = 2,

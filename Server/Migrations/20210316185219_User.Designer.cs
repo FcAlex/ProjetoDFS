@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Persistence.Contexts;
 
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210316185219_User")]
+    partial class User
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,25 +28,14 @@ namespace Server.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CompanyName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FantasyName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 10,
-                            Cnpj = "00.000.000/0001-99",
-                            CompanyName = "Alex Sousa ME",
-                            FantasyName = "FcoAlex"
-                        });
                 });
 
             modelBuilder.Entity("Server.Domains.Models.Product", b =>
@@ -60,7 +51,6 @@ namespace Server.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Observation")
@@ -71,21 +61,9 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId")
-                        .IsUnique();
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            CompanyId = 10,
-                            Description = "Salgadinho",
-                            Name = "Cheetos",
-                            Observation = "n.a",
-                            Value = 5f
-                        });
                 });
 
             modelBuilder.Entity("Server.Domains.Models.Purchase", b =>
@@ -134,21 +112,6 @@ namespace Server.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Purchases");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 101,
-                            Address = "Rua dos Bobos",
-                            Cep = "63.640-000",
-                            Date = new DateTime(2021, 4, 28, 20, 49, 20, 486, DateTimeKind.Local).AddTicks(363),
-                            Observation = "n.a",
-                            PaymentMethod = (byte)1,
-                            ProductId = 2,
-                            Status = (byte)5,
-                            UserId = 101,
-                            Value = 500f
-                        });
                 });
 
             modelBuilder.Entity("Server.Domains.Models.User", b =>
@@ -176,16 +139,6 @@ namespace Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 101,
-                            Cpf = "000.000.000-00",
-                            Email = "alex@example.com",
-                            Name = "Alex Sousa",
-                            Password = "12345678"
-                        });
                 });
 
             modelBuilder.Entity("Server.Domains.Models.Product", b =>
@@ -208,7 +161,7 @@ namespace Server.Migrations
                         .IsRequired();
 
                     b.HasOne("Server.Domains.Models.User", "User")
-                        .WithMany("Purchases")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -224,11 +177,6 @@ namespace Server.Migrations
                 });
 
             modelBuilder.Entity("Server.Domains.Models.Product", b =>
-                {
-                    b.Navigation("Purchases");
-                });
-
-            modelBuilder.Entity("Server.Domains.Models.User", b =>
                 {
                     b.Navigation("Purchases");
                 });

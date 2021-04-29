@@ -8,10 +8,14 @@ using System.Collections.Generic;
 using Server.Extensions;
 using System.Threading.Tasks;
 using Server.Resources.Saving;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Server.Controllers
 {
+    [EnableCors("AllowAllOrigins")]
     [Route("api/[controller]")]
+    [Authorize]
     public class PurchaseController : Controller
     {
         private readonly IPurchaseService _purchaseService;
@@ -38,33 +42,34 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PutPurchase([FromBody] SavePurchaseResource resource)
+        public async Task<IActionResult> PostAsync([FromBody] SavePurchaseResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
             var purchase = _mapper.Map<SavePurchaseResource, Purchase>(resource);
+
             var result = await _purchaseService.SaveAsync(purchase);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Purchase));
+            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Resource));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] PurchaseResource resource)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] SavePurchaseResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var purchase = _mapper.Map<PurchaseResource, Purchase>(resource);
+            var purchase = _mapper.Map<SavePurchaseResource, Purchase>(resource);
             var result = await _purchaseService.UpdateAsync(id, purchase);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Purchase));
+            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Resource));
         }
 
         [HttpDelete("{id}")]
@@ -75,7 +80,7 @@ namespace Server.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Purchase));
+            return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Resource));
         }
     }
 }

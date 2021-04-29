@@ -1,68 +1,124 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
 using Server.Domains.Repositories;
 using Server.Domains.Services;
 using Server.Persistence.Contexts;
 using Server.Persistence.Repositories;
 using Server.Services;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Server
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            //this.Configuration = configuration;
+            this.Configuration = new ConfigurationBuilder()
+                .AddJsonFile($"appsettings.json", optional: false, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .Build();
         }
 
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Server", Version = "v1" });
-            });
 
-            var connection = Configuration["ConnectionSqlite:SqliteConnectionString"];
+            Cors(services);
+            DbContext(services);
+            Scopes(services);
+            Authentication(services);
 
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite(connection)
-            );
-
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IPurchaseRepository, PurchaseRepository>();
-            services.AddScoped<IPurchaseService, PurchaseService>();
             services.AddAutoMapper(typeof(Startup));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Server v1"));
             }
 
-            app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+        }
+
+        private static void Cors(IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowAllOrigins", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+        }
+
+        private static void Scopes(IServiceCollection services)
+        {
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IPurchaseService, PurchaseService>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+
+        private void Authentication(IServiceCollection services)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+               opt =>
+               {
+                   var s = Encoding.UTF8.GetBytes(Configuration["SecurityKey"]);
+                   opt.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuer = true,
+                       ValidateAudience = true,
+                       ValidateLifetime = true,
+                       ValidateIssuerSigningKey = true,
+                       ValidIssuer = Configuration["Issuer"],
+                       ValidAudience = Configuration["Audience"],
+                       IssuerSigningKey = new SymmetricSecurityKey(s)
+                   };
+
+                   opt.Events = new JwtBearerEvents
+                   {
+                       OnAuthenticationFailed = _ => Task.CompletedTask,
+                       OnTokenValidated = _ => Task.CompletedTask
+                   };
+               });
+        }
+
+        private void DbContext(IServiceCollection services)
+        {
+            var connection = Configuration["ConnectionSqlite:SqliteConnectionString"];
+
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.EnableDetailedErrors(true);
+                options.UseSqlite(connection);
             });
         }
     }

@@ -3,15 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Domains.Models;
 using Server.Domains.Services;
 using Server.Resources;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Server.Extensions;
 using Server.Resources.Saving;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace Server.Controllers
 {
+    [EnableCors("AllowAllOrigins")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -72,7 +75,7 @@ namespace Server.Controllers
         {
             var result = await _companyService.DeleteAsync(id);
 
-            if (result.Success)
+            if (!result.Success)
                 return BadRequest(result.Message);
 
             return Ok(_mapper.Map<Company, CompanyResource>(result.Resource));

@@ -5,14 +5,10 @@ using System.Threading.Tasks;
 
 namespace Server.Communication
 {
-    public class Response <T> : BaseResponse where T : class
+    public class Response<T> : BaseResponse where T : class
     {
         public T Resource { get; set; }
 
-        private Response(bool success, string message, T resource) : base(success, message)
-        {
-            Resource = resource;
-        }
 
         public Response(T resource) : this(true, string.Empty, resource) { }
 

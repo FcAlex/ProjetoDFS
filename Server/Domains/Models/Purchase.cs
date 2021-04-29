@@ -15,7 +15,7 @@ namespace Server.Domains.Models
         public PaymentMethod PaymentMethod { get; set; }
         public PurchaseStatus Status { get; set; }
         public string Observation { get; set; }
-        public String Cep { get; set; }
+        public string Cep { get; set; }
         public string Address { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }

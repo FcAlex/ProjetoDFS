@@ -9,8 +9,8 @@ using Server.Persistence.Contexts;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210312195107_AddSeedPurchase")]
-    partial class AddSeedPurchase
+    [Migration("20210428234921_AddUser")]
+    partial class AddUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,14 +28,25 @@ namespace Server.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CompanyName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FantasyName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Company");
+                    b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 10,
+                            Cnpj = "00.000.000/0001-99",
+                            CompanyName = "Alex Sousa ME",
+                            FantasyName = "FcoAlex"
+                        });
                 });
 
             modelBuilder.Entity("Server.Domains.Models.Product", b =>
@@ -51,6 +62,7 @@ namespace Server.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Observation")
@@ -61,9 +73,21 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("CompanyId")
+                        .IsUnique();
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            CompanyId = 10,
+                            Description = "Salgadinho",
+                            Name = "Cheetos",
+                            Observation = "n.a",
+                            Value = 5f
+                        });
                 });
 
             modelBuilder.Entity("Server.Domains.Models.Purchase", b =>
@@ -117,15 +141,15 @@ namespace Server.Migrations
                         new
                         {
                             Id = 101,
-                            Address = "Rua do Bobos, nr. 0",
-                            Cep = "63640-000",
-                            Date = new DateTime(2021, 3, 12, 16, 51, 6, 875, DateTimeKind.Local).AddTicks(5904),
+                            Address = "Rua dos Bobos",
+                            Cep = "63.640-000",
+                            Date = new DateTime(2021, 4, 28, 20, 49, 20, 486, DateTimeKind.Local).AddTicks(363),
                             Observation = "n.a",
-                            PaymentMethod = (byte)3,
-                            ProductId = 0,
-                            Status = (byte)2,
+                            PaymentMethod = (byte)1,
+                            ProductId = 2,
+                            Status = (byte)5,
                             UserId = 101,
-                            Value = 0f
+                            Value = 500f
                         });
                 });
 
@@ -141,42 +165,28 @@ namespace Server.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
 
                     b.ToTable("Users");
 
                     b.HasData(
                         new
                         {
-                            Id = 100,
-                            Cpf = "00000000000",
-                            Email = "alexsousa@gmail.com",
-                            Name = "Alex Sousa",
-                            Password = "123456789"
-                        },
-                        new
-                        {
                             Id = 101,
-                            Cpf = "11111111111",
-                            Email = "joaolucas@gmail.com",
-                            Name = "João Lucas",
-                            Password = "123456789"
+                            Cpf = "000.000.000-00",
+                            Email = "alex@example.com",
+                            Name = "Alex Sousa",
+                            Password = "12345678"
                         });
                 });
 
