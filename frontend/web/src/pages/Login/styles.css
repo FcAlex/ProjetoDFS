@@ -1,0 +1,49 @@
+.login {
+  background: var(--bg-default);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.login h1 {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.login .form {
+  background: #fff;
+  padding: 20px;
+  width: 40%;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.login .form .btn {
+  float: right;
+  margin: 0.5rem 0;
+}
+
+@media (max-width: 575.98px) {
+  .login h1 {color: red !important;}
+  
+  .login .form {
+    width: calc(100% - 10px);
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .login .form {
+    width: 90%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .login .form {
+    width: 60%;
+  }
+}

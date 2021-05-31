@@ -1,0 +1,51 @@
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+} 
+
+.input-group {
+  position: relative;
+}
+
+.input-group input {
+  border: 1px solid #ced4da;
+  font-size: 1rem;
+  padding: 13px;
+  padding-left: 2.2rem;
+  width: 100%;
+  border-radius: 5px;
+  outline: none;
+}
+
+.input-group input:focus {
+  border: 1px solid rgba(28, 110, 164, 0.5);
+  box-shadow: rgba(28,110,164,0.3) 0px 1px 4px;
+}
+
+.input-group:focus-within i { 
+  color: rgba(28, 110, 164, 1);
+}
+
+.input-group i {
+  position: absolute;
+  top: 50%;
+  left: 0.625rem;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: #555;
+  z-index: 2;
+}
+
+.help {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #999;
+  margin-top: 5px;
+  text-indent: 5px;
+}

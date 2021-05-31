@@ -1,0 +1,23 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+}
+
+:root {
+  --bg-default: linear-gradient(to right, #457fca, #5691c8);
+  --bg-light-default: linear-gradient(to right, #ece9e6, #ffffff);
+}
+
+.bg-red, .bg-blue, .bg-yellow, .bg-green, .bg-gray {
+  border: none;
+  color: #fff;
+}
+
+.bg-red {background-color: #e74c3c;}
+.bg-blue {background-color: #3498db;}
+.bg-yellow {background-color: #f1c40f;}
+.bg-green {background-color: #2ecc71;}
+.bg-gray {background-color: #95a5a6;}
