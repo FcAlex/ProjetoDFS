@@ -9,6 +9,10 @@ namespace Server.Communication
     {
         public T Resource { get; set; }
 
+        private Response(bool success, string message, T resource) : base(success, message) 
+        {
+            Resource = resource;
+        }
 
         public Response(T resource) : this(true, string.Empty, resource) { }
 
