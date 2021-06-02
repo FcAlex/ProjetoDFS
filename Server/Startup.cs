@@ -22,7 +22,6 @@ namespace Server
 
         public Startup(IConfiguration configuration)
         {
-            //this.Configuration = configuration;
             this.Configuration = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables()
@@ -55,7 +54,7 @@ namespace Server
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors();
+            app.UseCors("AllowAllOrigins");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
