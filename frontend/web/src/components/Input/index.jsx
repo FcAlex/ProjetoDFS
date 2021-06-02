@@ -1,18 +1,6 @@
-import { InputHTMLAttributes } from 'react'
 import './styles.css' 
 
-type IconType = {
-  name: string,
-  version: string
-}
-
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  icon?: IconType
-  label?: string
-  helper?: string
-}
-
-const InputIcon = ({icon, label, helper, ...props}: Props) => {
+const InputIcon = ({icon, label, helper, ...props}) => {
   return (
     <div className="form-group">
       { label ? <label>{label}</label> : false}
