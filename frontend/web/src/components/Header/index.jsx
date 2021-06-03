@@ -1,6 +1,6 @@
 import { logout } from "../../services/auth"
 import Button from '../Button'
-import logo_sx from '../../assets/logo-sx.svg'
+import logo_sx from '../../assets/logo.svg'
 
 import './styles.css'
 
@@ -13,9 +13,11 @@ const Header = () => {
 
   return (
     <header className="header">
-      <img src={logo_sx} alt="Logo SisVendas" />
+      <div>
+        <img src={logo_sx} alt="Logo SisVendas" />
+      </div>
       <Button
-        icon={{name: "sign-out-alt", version: "fas"}} 
+        icon={{ name: "sign-out-alt", version: "fas" }} 
         bg="transparent" 
         onClick={handleLogout} />
     </header>

@@ -9,6 +9,8 @@
 :root {
   --bg-default: linear-gradient(to right, #457fca, #5691c8);
   --bg-light-default: linear-gradient(to right, #ece9e6, #ffffff);
+
+  --header-width: 4.2rem
 }
 
 .bg-red, .bg-blue, .bg-yellow, .bg-green, .bg-gray {

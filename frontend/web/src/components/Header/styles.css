@@ -2,15 +2,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--bg-default);
-  height: 5rem;
+  background-color:  #5691c8;
+  height: var(--header-width);
 }
 
-.header img {
-  height: 90%;
+.header div {
+  height: 100%;
   width: auto;
   margin: 0;
-  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  background-color: #457fca;
+  padding: 0 2rem;
+}
+
+.header div img {
+  height: 75%;
+  width: auto;
+  margin: 0;
 }
 
 .header i {

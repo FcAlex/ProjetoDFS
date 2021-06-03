@@ -1,9 +1,9 @@
 import { ToastProvider } from 'react-toast-notifications';
-import Routes from './routes'
+import RouteSign from './routes/login'
 
 const App = () => (
   <ToastProvider>
-    <Routes />
+    <RouteSign />
   </ToastProvider>
 )
 
