@@ -1,9 +1,7 @@
 import React, { createContext } from 'react';
 import { isAuthenticated, login, logout } from '../services/auth';
 
-
 const AuthContext = createContext({});
-
 
 export const AuthProvider = ({ children }) => {
     
