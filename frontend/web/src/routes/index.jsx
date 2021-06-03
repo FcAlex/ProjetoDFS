@@ -1,23 +1,20 @@
-import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom'
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Login from '../pages/Login'
+import Main from '../pages/Main'
 import { isAuthenticated } from '../services/auth'
+import PrivateRoute from './private'
 
-const PrivateRoute = (props) => {
-  const { component: Component, ...rest } = props
-
-  return <Route {...rest} render={ props => 
-    isAuthenticated() 
-      ? <Component { ...props } />
-      : <Redirect to={{pathname: "/", state: {from: props.location} }} />
-  } />
+function defineHome() {
+  return isAuthenticated()
+    ? <PrivateRoute exact path="/" component={Main} />
+    : <Route exact path="/" component={Login} />
 }
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Login} />
-        <PrivateRoute path="/app" component={() => <h1>App</h1>}></PrivateRoute>
+        {defineHome()}
         <Route path="*" component={() => <h1>Page not found</h1>} />
       </Switch>
     </BrowserRouter>

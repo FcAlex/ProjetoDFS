@@ -1,18 +1,22 @@
 .login {
   background: var(--bg-default);
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto 1fr;
+  place-items: center;
   gap: 1rem;
 }
 
-.login h1 {
-  color: #fff;
+.login .form h1 {
+  color: #555;
   font-weight: 600;
   font-size: 1.5rem;
   text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #eee;
 }
 
 .login .form {
@@ -28,9 +32,21 @@
   margin: 0.5rem 0;
 }
 
+.handleVisiblePassword {
+  position: relative;
+}
+
+.handleVisiblePassword .fa-eye-slash, .handleVisiblePassword .fa-eye {
+  color: #555;
+  cursor: pointer;
+  position: absolute;
+  top: calc(50% + 4px);
+  right: 0.625rem;
+  font-size: 1.1rem;
+  z-index: 2;
+}
+
 @media (max-width: 575.98px) {
-  .login h1 {color: red !important;}
-  
   .login .form {
     width: calc(100% - 10px);
   }
@@ -46,4 +62,8 @@
   .login .form {
     width: 60%;
   }
+}
+
+img {
+  width: 20rem;
 }

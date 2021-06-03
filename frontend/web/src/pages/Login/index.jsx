@@ -3,21 +3,24 @@ import Button from "../../components/Button"
 import Input from "../../components/Input"
 import api from "../../services/api"
 import { login } from "../../services/auth"
+import logo from '../../assets/logo.svg'
+import { useToasts } from 'react-toast-notifications'
 
 import './styles.css'
 
 const INITIAL_VALUE = {
   email: "",
   password: "",
-  error: ""
+  error: {msg: "", status: false}
 }
 
-const Login = (props) => {
+const Login = () => {
 
   const [userData, setUserData] = useState(INITIAL_VALUE)
+  const { addToast} = useToasts()
 
-  function setError(error) {
-    setUserData({ ...userData, error })
+  function handleError(status, msg) {
+    setUserData({ ...userData, error: { msg, status } })
   }
 
   function setEmail(event) {
@@ -32,36 +35,58 @@ const Login = (props) => {
     event.preventDefault();
     const { email, password } = userData
 
-    console.log(userData)
-
     if (!email || !password) {
-      setError("Preencha e-mail e senha para continuar")
+      handleError(true, "Preencha e-mail e senha para continuar")
     } else {
       try {
         const response = await api.post("/authentication", { email, password })
         login(response.data.token)
-        props.history.push("/app")
-      } catch (error) {
-        console.log("aqui", error)
-        setError("Houve um problema com o login, verifique suas credenciais.")
+        handleError(false)
+        window.location.reload()
+        return
+      } catch {
+        handleError(true, "Houve um problema com o login, verifique suas credenciais.")
       }
+    }
+
+    addToast(userData.error.msg, {
+      appearance: 'error',
+      autoDismiss: true,
+    })
+  }
+
+  function handleIconPassword(e) {
+    const input = document.getElementById("iPassword")
+    if(e.target.classList.contains("fa-eye-slash")){
+      input.type = "text"
+      e.target.classList.replace("fa-eye-slash", "fa-eye")
+    } else {
+      input.type = "password"
+      e.target.classList.replace("fa-eye", "fa-eye-slash")
     }
   }
 
   return (
     <div className="login">
-      {/* <img src="./../../assets/logo.svg" alt="Logo SisVendas"/> */}
-      <h1>Faça Login para continuar</h1>
+      <img src={logo} alt="Logo SisVendas"/>
       <form className="form" onSubmit={handleLogin}>
+        <h1>Faça Login para continuar</h1>
         <Input icon={{ name: "user", version: "fa" }} value={login.email} onChange={setEmail}
           placeholder="e.g. alex@example.com" type="email" label="Seu Email" />
-        <Input icon={{ name: "lock", version: "fa" }} value={login.password} onChange={setPassword}
-          placeholder="Digite sua senha" type="password" label="Sua Senha" />
+        <div className="handleVisiblePassword">
+          <Input id="iPassword"
+            icon={{ name: "lock", version: "fa" }} 
+            value={login.password} 
+            onChange={setPassword} 
+            placeholder="Digite sua senha" 
+            type="password" label="Sua Senha" />
+
+          <i className="fas fa-eye-slash" onClick={handleIconPassword}></i>
+        </div>
 
         <Button icon={{ name: "sign-in-alt", version: "fas" }} bg="blue" type="submit">
           Entrar
         </Button>
-
       </form>
     </div>
   )

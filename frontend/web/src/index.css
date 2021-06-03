@@ -21,3 +21,4 @@
 .bg-yellow {background-color: #f1c40f;}
 .bg-green {background-color: #2ecc71;}
 .bg-gray {background-color: #95a5a6;}
+.bg-transparent {background: transparent; border: none;}
