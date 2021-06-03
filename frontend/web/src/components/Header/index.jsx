@@ -1,10 +1,12 @@
-import { logout } from "../../services/auth"
 import Button from '../Button'
 import logo_sx from '../../assets/logo.svg'
 
 import './styles.css'
+import useAuth from '../../hooks/useAuth'
 
 const Header = () => {
+
+  const { logout } = useAuth()
 
   function handleLogout() {
     logout()

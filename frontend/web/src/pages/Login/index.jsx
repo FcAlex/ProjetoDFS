@@ -2,11 +2,11 @@ import { useState } from "react"
 import Button from "../../components/Button"
 import Input from "../../components/Input"
 import api from "../../services/api"
-import { login } from "../../services/auth"
 import logo from '../../assets/logo.svg'
 import { useToasts } from 'react-toast-notifications'
 
 import './styles.css'
+import useAuth from "../../hooks/useAuth"
 
 const INITIAL_VALUE = {
   email: "",
@@ -17,6 +17,8 @@ const Login = () => {
 
   const [userData, setUserData] = useState(INITIAL_VALUE)
   const { addToast} = useToasts()
+
+  const { login } = useAuth()
 
   function toastError(msg) {
     addToast(msg, {
@@ -42,7 +44,7 @@ const Login = () => {
     } else {
       try {
         const response = await api.post("/authentication", { email, password })
-        login(response.data.token)
+        login(response.data.result.token)
         window.location.reload()
         return
       } catch {

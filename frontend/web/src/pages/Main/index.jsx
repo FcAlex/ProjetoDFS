@@ -1,15 +1,14 @@
 import { ToastProvider } from "react-toast-notifications"
+import Aside from "../../components/Aside"
 import Header from "../../components/Header"
-import Routes from "../../routes"
-import Aside from "../Aside"
-import Footer from "../Footer"
+import Footer from "../../components/Footer"
 
-const Main = props => {
+const Main = ({ content }) => {
   return (
     <ToastProvider>
       <Header />
       <Aside />
-      <Routes />
+      { content }
       <Footer />
     </ToastProvider>
   )

@@ -1,10 +1,16 @@
+import { BrowserRouter } from 'react-router-dom';
 import { ToastProvider } from 'react-toast-notifications';
-import RouteSign from './routes/login'
+import { AuthProvider } from './contexts/auth';
+import Routes from './routes';
 
 const App = () => (
-  <ToastProvider>
-    <RouteSign />
-  </ToastProvider>
+  <BrowserRouter>
+    <AuthProvider>
+      <ToastProvider> 
+        <Routes />
+      </ToastProvider>
+    </AuthProvider>
+  </BrowserRouter>
 )
 
 export default App;
