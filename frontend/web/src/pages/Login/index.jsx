@@ -13,7 +13,7 @@ const INITIAL_VALUE = {
   password: "",
 }
 
-const Login = () => {
+const Login = (props) => {
 
   const [userData, setUserData] = useState(INITIAL_VALUE)
   const { addToast} = useToasts()
@@ -42,7 +42,7 @@ const Login = () => {
     } else {
       try {
         const response = await api.post("/authentication", { email, password })
-        login(response.data.token)
+        login(response.data.result.token)
         window.location.reload()
         return
       } catch {
