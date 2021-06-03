@@ -49,7 +49,7 @@ namespace Server.Controllers
                     result = new
                     {
                         token,
-                        user = new { user.Id, user.Email }
+                        user = new { user.Id, user.Email, user.Name }
                     }
                 });
             } catch

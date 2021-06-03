@@ -13,7 +13,7 @@ const INITIAL_VALUE = {
   password: "",
 }
 
-const Login = (props) => {
+const Login = () => {
 
   const [userData, setUserData] = useState(INITIAL_VALUE)
   const { addToast} = useToasts()
