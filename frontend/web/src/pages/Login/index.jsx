@@ -11,7 +11,6 @@ import './styles.css'
 const INITIAL_VALUE = {
   email: "",
   password: "",
-  error: {msg: "", status: false}
 }
 
 const Login = () => {
@@ -19,8 +18,11 @@ const Login = () => {
   const [userData, setUserData] = useState(INITIAL_VALUE)
   const { addToast} = useToasts()
 
-  function handleError(status, msg) {
-    setUserData({ ...userData, error: { msg, status } })
+  function toastError(msg) {
+    addToast(msg, {
+      appearance: 'error',
+      autoDismiss: true,
+    })
   }
 
   function setEmail(event) {
@@ -36,23 +38,17 @@ const Login = () => {
     const { email, password } = userData
 
     if (!email || !password) {
-      handleError(true, "Preencha e-mail e senha para continuar")
+      toastError("Preencha e-mail e senha para continuar")
     } else {
       try {
         const response = await api.post("/authentication", { email, password })
         login(response.data.token)
-        handleError(false)
         window.location.reload()
         return
       } catch {
-        handleError(true, "Houve um problema com o login, verifique suas credenciais.")
+        toastError("Houve um problema com o login, verifique suas credenciais.")
       }
     }
-
-    addToast(userData.error.msg, {
-      appearance: 'error',
-      autoDismiss: true,
-    })
   }
 
   function handleIconPassword(e) {
