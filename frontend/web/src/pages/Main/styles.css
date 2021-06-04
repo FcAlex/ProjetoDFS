@@ -1,0 +1,26 @@
+.main {
+  display: grid;
+  grid-template-columns: 15% auto;
+  grid-template-rows: var(--header-height) auto 5rem;
+  grid-template-areas: 
+    "header header"
+    "aside main"
+    "aside footer";
+  height: 100vh;
+}
+
+.main > :nth-child(1) {
+  grid-area: header;
+}
+
+.main > :nth-child(2) {
+  grid-area: aside;
+}
+
+.main > :nth-child(3) {
+  grid-area: main;
+}
+
+.main > :nth-child(4) {
+  grid-area: footer;
+}

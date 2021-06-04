@@ -7,10 +7,21 @@
 }
 
 :root {
-  --bg-default: linear-gradient(to right, #457fca, #5691c8);
+  --color-default1: #457fca;
+  --colot-default2: #5691c8;
+  --bg-default: linear-gradient(to right, var(--color-default1), var(--colot-default2));
   --bg-light-default: linear-gradient(to right, #ece9e6, #ffffff);
 
-  --header-width: 4.2rem
+  --header-height: 4.2rem;
+  --header-width: 12rem;
+}
+
+li {
+  list-style: none;
+}
+
+a { 
+  text-decoration: none;
 }
 
 .bg-red, .bg-blue, .bg-yellow, .bg-green, .bg-gray {

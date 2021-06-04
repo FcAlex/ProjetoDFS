@@ -1,8 +1,11 @@
 
+import './styles.css'
+import Menu from '../Menu'
+
 const Aside = props => {
   return (
-    <aside>
-      Aside
+    <aside className="aside" >
+      <Menu />
     </aside>
   )
 }

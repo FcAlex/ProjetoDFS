@@ -6,7 +6,7 @@ const InputIcon = ({icon, label, helper, ...props}) => {
       { label ? <label>{label}</label> : false}
       
       <div className="input-group">
-        { icon ? <i className={`input-group-text ${icon.version} fa-${icon.name}`}></i> : false }
+        { icon ? <i className={`input-group-text fas fa-${icon}`}></i> : false }
         <input {...props} />
       </div>
 

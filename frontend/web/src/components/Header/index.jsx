@@ -19,7 +19,7 @@ const Header = () => {
         <img src={logo_sx} alt="Logo SisVendas" />
       </div>
       <Button
-        icon={{ name: "sign-out-alt", version: "fas" }} 
+        icon="sign-out-alt" 
         bg="transparent" 
         onClick={handleLogout} />
     </header>

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Button from "../../components/Button"
 import Input from "../../components/Input"
-import api from "../../services/api"
+import api, { signInService } from "../../services/api"
 import logo from '../../assets/logo.svg'
 import { useToasts } from 'react-toast-notifications'
 
@@ -43,8 +43,10 @@ const Login = () => {
       toastError("Preencha e-mail e senha para continuar")
     } else {
       try {
-        const response = await api.post("/authentication", { email, password })
-        login(response.data.result.token)
+        // const response = await api.post("/authentication", { email, password })
+        const response = await signInService()
+        // login(response.data.result.token)
+        login(response.user)
         window.location.reload()
         return
       } catch {
@@ -69,11 +71,11 @@ const Login = () => {
       <img src={logo} alt="Logo SisVendas"/>
       <form className="form" onSubmit={handleLogin}>
         <h1>Faça Login para continuar</h1>
-        <Input icon={{ name: "user", version: "fa" }} value={login.email} onChange={setEmail}
+        <Input icon="user" value={login.email} onChange={setEmail}
           placeholder="e.g. alex@example.com" type="email" label="Seu Email" />
         <div className="handleVisiblePassword">
           <Input id="iPassword"
-            icon={{ name: "lock", version: "fa" }} 
+            icon="lock"
             value={login.password} 
             onChange={setPassword} 
             placeholder="Digite sua senha" 
@@ -82,7 +84,7 @@ const Login = () => {
           <i className="fas fa-eye-slash" onClick={handleIconPassword}></i>
         </div>
 
-        <Button icon={{ name: "sign-in-alt", version: "fas" }} bg="blue" type="submit">
+        <Button icon="sign-in-alt" bg="blue" type="submit">
           Entrar
         </Button>
       </form>

@@ -1,0 +1,37 @@
+
+.menu {
+  padding-top: 2rem;
+}
+
+.item {
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.item span, .item a {
+  font-size: 0.9rem;
+  color: #fff;
+  user-select: none;
+}
+
+.item ul {
+  margin-top: 0.4rem;
+}
+
+.item-title {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.item-title .iconToggle{
+  float: right;
+}
+
+.tree li {
+  padding-left: 1.5rem;
+}
+
+.item i {
+  margin-right: 0.5rem;
+}
