@@ -43,10 +43,10 @@ const Login = () => {
       toastError("Preencha e-mail e senha para continuar")
     } else {
       try {
-        // const response = await api.post("/authentication", { email, password })
-        const response = await signInService()
-        // login(response.data.result.token)
-        login(response.user)
+        const response = await api.post("/authentication", { email, password })
+        //const response = await signInService() // teste sem backend
+        login(response.data.result.token)
+        //login(response.user) // teste sem backend
         window.location.reload()
         return
       } catch {
