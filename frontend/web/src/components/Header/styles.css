@@ -4,7 +4,7 @@
   align-items: center;
   background-color:  #5691c8;
   height: var(--header-height);
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 8px;
 }
 
 .header div {

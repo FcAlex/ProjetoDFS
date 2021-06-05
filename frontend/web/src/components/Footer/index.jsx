@@ -1,8 +1,10 @@
 
+import './styles.css'
+
 const Footer = props => {
   return (
     <footer className="footer">
-      Footer
+      <span>SisCompras &copy; 2021</span>
     </footer>
   )
 }

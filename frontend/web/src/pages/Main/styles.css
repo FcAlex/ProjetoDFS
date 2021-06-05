@@ -1,7 +1,7 @@
 .main {
   display: grid;
   grid-template-columns: 15% auto;
-  grid-template-rows: var(--header-height) auto 5rem;
+  grid-template-rows: var(--header-height) 1fr auto;
   grid-template-areas: 
     "header header"
     "aside main"
