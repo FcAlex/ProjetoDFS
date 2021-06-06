@@ -46,9 +46,18 @@
   z-index: 2;
 }
 
+img {
+  width: 30%;
+  margin-top: 1rem;
+}
+
 @media (max-width: 575.98px) {
   .login .form {
     width: calc(100% - 10px);
+  }
+
+  img {
+    width: 60%;
   }
 }
 
@@ -56,15 +65,14 @@
   .login .form {
     width: 90%;
   }
+
+  img {
+    width: 40%;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
   .login .form {
     width: 60%;
   }
-}
-
-img {
-  width: 30%;
-  margin-top: 1rem;
 }

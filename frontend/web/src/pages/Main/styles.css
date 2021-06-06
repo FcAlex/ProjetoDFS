@@ -1,6 +1,6 @@
 .main {
   display: grid;
-  grid-template-columns: 15% auto;
+  grid-template-columns: var(--first-col-width) auto;
   grid-template-rows: var(--header-height) 1fr auto;
   grid-template-areas: 
     "header header"
@@ -23,4 +23,16 @@
 
 .main > :nth-child(4) {
   grid-area: footer;
+}
+
+@media (max-width: 768px) {
+  .main {
+    grid-template-columns: 100%;
+    grid-template-rows: var(--header-height) auto 1fr auto;
+    grid-template-areas: 
+      "header"
+      "aside"
+      "main"
+      "footer";
+  }
 }

@@ -16,7 +16,7 @@ const INITIAL_VALUE = {
 const Login = () => {
 
   const [userData, setUserData] = useState(INITIAL_VALUE)
-  const { addToast} = useToasts()
+  const { addToast } = useToasts()
 
   const { login } = useAuth()
 

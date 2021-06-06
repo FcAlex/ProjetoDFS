@@ -1,6 +1,6 @@
 
 .menu {
-  padding-top: 2rem;
+  display: block;
 }
 
 .item {
@@ -34,4 +34,36 @@
 
 .item i {
   margin-right: 0.5rem;
+}
+
+.tituloMenu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .menu {
+    padding-top: 0rem;
+  }
+
+  .menu li {
+    border-bottom: 1px solid #FFFFFF18;
+  }
+
+  .menuNone {
+    display: none;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .tituloMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.05rem;
+  }
 }

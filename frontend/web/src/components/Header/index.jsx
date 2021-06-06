@@ -1,5 +1,4 @@
 import Button from '../Button'
-import logo_sx from '../../assets/logo.svg'
 
 import './styles.css'
 import useAuth from '../../hooks/useAuth'
@@ -15,8 +14,10 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div>
-        <img src={logo_sx} alt="Logo SisVendas" />
+      <div className="logo">
+        <a href="/">
+          <div></div>
+        </a>
       </div>
       <Button
         icon="sign-out-alt" 

@@ -8,12 +8,13 @@
 
 :root {
   --color-default1: #457fca;
-  --colot-default2: #5691c8;
-  --bg-default: linear-gradient(to right, var(--color-default1), var(--colot-default2));
+  --color-default2: #5691c8;
+  --bg-default: linear-gradient(to right, var(--color-default1), var(--color-default2));
   --bg-light-default: linear-gradient(to right, #ece9e6, #ffffff);
 
   --header-height: 4.2rem;
   --header-width: 12rem;
+  --first-col-width: 18%;
 }
 
 li {
