@@ -39,7 +39,24 @@
 .header i {
   font-size: 1.7rem;
   color: #fff;
+}
 
+.welcome {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #fff;
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
+
+.welcome span, .welcome strong {
+  font-size: 0.9rem;
+}
+
+.welcome strong {
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
@@ -58,6 +75,10 @@
     box-shadow: none;
     background: var(--bg-default);
   } 
+
+  .welcome {
+    display: none;
+  }
 }
 
 @media (max-width: 576px) {

@@ -11,5 +11,6 @@ namespace Server.Resources
         [Required]
         [StringLength(30)]
         public string Password { get; set; }
+        
     }
 }

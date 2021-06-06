@@ -35,13 +35,13 @@ namespace Server.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState.GetErrorMessages());
 
-                var user = _mapper.Map<AuthUserResource, User>(resource); // HACK: converter antes para UserResource
-                var result = await _userService.FirstOrDefaultAsync(user.Email, user.Password);
+                var result = await _userService.FirstOrDefaultAsync(resource.Email, resource.Password);
+                var user = _mapper.Map<User, UserResource>(result);
 
                 if (result == null)
                     return BadRequest("Erro ao tentar realizar login");
 
-                var token = CrytoFunctions.GenerateToken(_configuration, user);
+                var token = CrytoFunctions.GenerateToken(_configuration);
 
                 return Ok(new
                 {

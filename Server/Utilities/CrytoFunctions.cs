@@ -12,7 +12,7 @@ namespace Server.Utilities
 {
     public class CrytoFunctions
     {
-        public static string GenerateToken(IConfiguration configuration, User user)
+        public static string GenerateToken(IConfiguration configuration)
         {
             var s = Encoding.UTF8.GetBytes(configuration["SecurityKey"]);
             SymmetricSecurityKey key = new SymmetricSecurityKey(s);

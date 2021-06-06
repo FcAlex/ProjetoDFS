@@ -18,7 +18,7 @@ const Login = () => {
   const [userData, setUserData] = useState(INITIAL_VALUE)
   const { addToast } = useToasts()
 
-  const { login } = useAuth()
+  const { login, setUser } = useAuth()
 
   function toastError(msg) {
     addToast(msg, {
@@ -45,10 +45,10 @@ const Login = () => {
       try {
         const response = await api.post("/authentication", { email, password })
         //const response = await signInService() // teste sem backend
-        login(response.data.result.token)
-        //login(response.user) // teste sem backend
+        const { token, user } = response?.data?.result
+        login(token, user)
+        //login(response.token, response.user) // teste sem backend
         window.location.reload()
-        return
       } catch {
         toastError("Houve um problema com o login, verifique suas credenciais.")
       }

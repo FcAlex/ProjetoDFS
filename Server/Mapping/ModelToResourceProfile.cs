@@ -16,7 +16,6 @@ namespace Server.Mapping
             CreateMap<Company, CompanyResource>();
             CreateMap<Product, ProductResource>();
             CreateMap<User, UserResource>();
-            CreateMap<AuthUserResource, User>(); // REMOVE
         }
     }
 }

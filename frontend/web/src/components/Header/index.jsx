@@ -5,19 +5,23 @@ import useAuth from '../../hooks/useAuth'
 
 const Header = () => {
 
-  const { logout } = useAuth()
+  const { logout, getData } = useAuth()
 
   function handleLogout() {
     logout()
     window.location.reload()
   }
-
+  
   return (
     <header className="header">
       <div className="logo">
         <a href="/">
           <div></div>
         </a>
+      </div>
+      <div className="welcome">
+        <i className="far fa-user-circle"></i>
+        <span>Bem vindo, <strong>{getData()?.name}</strong></span>
       </div>
       <Button
         icon="sign-out-alt" 

@@ -1,16 +1,16 @@
 import React, { createContext } from 'react';
-import { isAuthenticated, login, logout } from '../services/auth';
+import { isAuthenticated, login, logout, getData } from '../services/auth';
 
-const AuthContext = createContext({});
+const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
-    
     return (
 
         <AuthContext.Provider value={{ 
             signed: isAuthenticated(),
-            login, 
+            login,
             logout,
+            getData
         }}>
             { children }
         </AuthContext.Provider>

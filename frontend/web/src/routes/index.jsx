@@ -23,6 +23,8 @@ const Routes = () => {
     <Switch>
       {defineHome()}
       <PrivateRoute path="/user" component={contentMain(User)} />
+      <PrivateRoute path="/purchase" component={contentMain(User)} />
+      <PrivateRoute path="/orders" component={contentMain(User)} />
     </Switch>
   )
 }
