@@ -41,5 +41,13 @@ namespace Server.Persistence.Repositories
             purchase.User = await _context.Users.FindAsync(purchase.UserId);
             purchase.Product = await _context.Products.FindAsync(purchase.ProductId);
         }
+
+        public async Task<IEnumerable<Purchase>> GetPurchaseByUserAsync(int id) {
+            var purchase =  await _context.Purchases
+                .FromSqlInterpolated($"SELECT * FROM Purchases WHERE UserId = {id}")
+                .ToListAsync();
+
+            return purchase;
+        }
     }
 }

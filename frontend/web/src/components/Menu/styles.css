@@ -65,5 +65,6 @@
     color: #fff;
     font-weight: 500;
     font-size: 1.05rem;
+    user-select: none;
   }
 }

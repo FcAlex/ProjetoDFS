@@ -84,5 +84,10 @@ namespace Server.Services
                 return new Response<Purchase>($"An error occorred when deleting the user: {ex.Message}");
             }
         }
+
+        public async Task<IEnumerable<Purchase>> GetPurchaseByUserAsync(int id) {
+            var purchase = await _purchaseRepository.GetPurchaseByUserAsync(id);
+            return purchase;
+        } 
     }
 }
