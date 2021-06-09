@@ -90,6 +90,7 @@ namespace Server.Persistence.Contexts
                 {
                     Id = 101,
                     Address = "Rua dos Bobos",
+                    Name = "Compra Semanal",
                     Cep="63.640-000",
                     Date = DateTime.Now,
                     Observation = "n.a",

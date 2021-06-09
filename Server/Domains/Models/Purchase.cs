@@ -10,6 +10,7 @@ namespace Server.Domains.Models
     public class Purchase
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public float Value { get; set; }
         public DateTime Date { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
