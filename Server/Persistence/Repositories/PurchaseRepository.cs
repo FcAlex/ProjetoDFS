@@ -4,7 +4,7 @@ using Server.Persistence.Contexts;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using System;
+using System.Linq;
 
 namespace Server.Persistence.Repositories
 {
@@ -15,7 +15,6 @@ namespace Server.Persistence.Repositories
         public async Task<IEnumerable<Purchase>> ListAllAsync()
         {
             var purchases = await _context.Purchases.ToListAsync();
-            purchases.ForEach(purchase => AddUserAndProduct(purchase));
             return purchases;
         }
 
@@ -28,7 +27,6 @@ namespace Server.Persistence.Repositories
         public async Task<Purchase> FindByIdAsync(int id)
         {
             var purchase = await _context.Purchases.FindAsync(id);
-            AddUserAndProduct(purchase);
             return purchase;
         }
 
@@ -42,11 +40,13 @@ namespace Server.Persistence.Repositories
             purchase.Product = await _context.Products.FindAsync(purchase.ProductId);
         }
 
+        private async void AddProduct(Purchase purchase) {
+            purchase.Product = await _context.Products.FindAsync(purchase.ProductId);
+        }
+
         public async Task<IEnumerable<Purchase>> GetPurchaseByUserAsync(int id) {
             var purchase =  await _context.Purchases
-                .FromSqlInterpolated($"SELECT * FROM Purchases WHERE UserId = {id}")
-                .ToListAsync();
-
+                .Where(purchase => purchase.Id == id).ToListAsync();
             return purchase;
         }
     }

@@ -1,0 +1,50 @@
+
+.orders {
+  margin: 1rem;
+}
+
+.orders .filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orders .fa-file-pdf {
+  color: #e74c3c;
+}
+
+.orders .fa-shopping-bag {
+  color: #f1c40f;
+}
+
+.orders .fa-edit {
+  color: #58ACE3;
+}
+
+.orders .fa-trash {
+  color: #95a5a6;
+}
+
+.orders table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.orders table th, .orders table td {
+  border-bottom: 1px solid #eee;
+  padding: 0.4rem;
+  text-align: center;
+  width: 26%;
+}
+
+.orders table td:last-child {
+  width: 22%;
+}
+
+.orders .dollar {
+  margin-left: 1rem;
+}
+
+.orders h1 {
+  font-size: 1.5rem;
+}

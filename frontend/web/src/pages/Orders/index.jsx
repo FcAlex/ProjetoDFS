@@ -1,10 +1,12 @@
-
+import { format } from 'date-fns'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 import api from '../../services/api'
 import useAuth from '../../hooks/useAuth'
 import { useEffect, useState } from 'react'
+
+import './styles.css'
 
 const Order = props => {
 
@@ -16,10 +18,10 @@ const Order = props => {
     (async () => {
       try {
         const response = await api.get("/purchase", { params: id})
-        console.log(response)
+
         setPurchases(response.data)
       } catch (error) {
-        console.log(error.message)
+        console.log(error.response)
       }
     })()
   }, [id])
@@ -29,19 +31,24 @@ const Order = props => {
       purchases.map(purchase => (
         <tr key={purchase.id}>
           <td>{purchase.id}</td>
-          <td>{purchase.value}</td>
-          <td>{purchase.date}</td>
-          <td></td>
+          <td>R${purchase.value.toFixed(2)}</td>
+          <td>{format(new Date(purchase.date), 'dd/MM/yyyy')}</td>
+          <td>
+            <Button icon="file-pdf" title="Gerar PDF"></Button>
+            <Button icon="shopping-bag" title="Listar Compras"></Button>
+            <Button icon="edit" title="Editar Pedido"></Button>
+            <Button icon="trash" title="Deletar pedido"></Button>
+          </td>
         </tr>
       ))
     )
   }
 
   return (
-    <main>
+    <main className="orders">
       <h1>Compras Realizadas</h1>
       <div className="listaCompras">
-        <div style={{ display: 'flex', alignItems: "center" }}>  {/* TODO */}
+        <div className="filter">
           <Input placeholder="Busque por ID" />
           <Button bg="green" icon="filter" />
         </div>
