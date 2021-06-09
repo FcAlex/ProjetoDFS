@@ -1,5 +1,4 @@
 import { format } from 'date-fns'
-import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 import api from '../../services/api'
@@ -49,7 +48,7 @@ const Order = props => {
       <h1>Compras Realizadas</h1>
       <div className="listaCompras">
         <div className="filter">
-          <Input placeholder="Busque por ID" />
+          
           <Button bg="green" icon="filter" />
         </div>
 
