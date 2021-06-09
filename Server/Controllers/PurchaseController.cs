@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Server.Controllers
 {
-    [EnableCors("AllowAllOrigins")]
     [Route("api/[controller]")]
     [Authorize]
     public class PurchaseController : Controller

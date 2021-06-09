@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Cors;
 
 namespace Server.Controllers
 {
-    [EnableCors("AllowAllOrigins")]
     [Route("api/[controller]")]
     [Authorize]
     public class CompanyController : Controller

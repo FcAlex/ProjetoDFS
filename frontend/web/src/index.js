@@ -5,8 +5,6 @@ import './index.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <App />,
   document.getElementById('root')
 );

@@ -50,11 +50,11 @@ namespace Server
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
+            app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors("AllowAllOrigins");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -65,9 +65,11 @@ namespace Server
         {
             services.AddCors(options =>
             {
-                options.AddPolicy(name: "AllowAllOrigins", builder =>
-                {
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                options.AddDefaultPolicy(builder => {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
                 });
             });
         }
