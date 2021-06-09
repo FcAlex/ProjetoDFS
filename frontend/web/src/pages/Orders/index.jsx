@@ -4,24 +4,38 @@ import Button from '../../components/Button'
 
 import api from '../../services/api'
 import useAuth from '../../hooks/useAuth'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const Order = props => {
 
+  const [purchases, setPurchases] = useState([]) 
   const { getData } = useAuth()
   const { id } = getData()
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await api.get("/purchase")
-        
+        const response = await api.get("/purchase", { params: id})
         console.log(response)
+        setPurchases(response.data)
       } catch (error) {
         console.log(error.message)
       }
     })()
   }, [id])
+
+  function renderRows() {
+    return (
+      purchases.map(purchase => (
+        <tr key={purchase.id}>
+          <td>{purchase.id}</td>
+          <td>{purchase.value}</td>
+          <td>{purchase.date}</td>
+          <td></td>
+        </tr>
+      ))
+    )
+  }
 
   return (
     <main>
@@ -43,7 +57,7 @@ const Order = props => {
           </thead>
 
           <tbody>
-
+            {renderRows()}
           </tbody>
         </table>
       </div>
