@@ -8,3 +8,16 @@
 .btn .spacing {
   margin-right: 5px;
 }
+
+.popup-content {
+  width: auto !important;
+  display: flex !important; 
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  user-select: none;
+}
+
+.tooltip {
+  font-size: 0.7rem !important;
+}

@@ -37,11 +37,15 @@
 }
 
 .orders .fa-edit {
-  color: #58ACE3;
+  color: #2ecc71;
 }
 
 .orders .fa-trash {
   color: #95a5a6;
+}
+
+.orders .fa-plus {
+  color: #58ACE3;
 }
 
 .orders table {
@@ -54,7 +58,15 @@
   border-bottom: 1px solid #eee;
   padding: 0.4rem;
   text-align: center;
-  /* width: 21%; */
+  width: 16.5%;
+}
+
+.orders table th:first-child, .orders table td:first-child {
+  width: 5%;
+}
+
+.orders table th:last-child, .orders table td:last-child {
+  width: 12,5%;
 }
 
 .orders .dollar {

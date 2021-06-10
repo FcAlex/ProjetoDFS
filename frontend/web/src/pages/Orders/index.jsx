@@ -6,15 +6,14 @@ import { purchases as getPurchases } from '../../services/api_test'
 import useAuth from '../../hooks/useAuth'
 import { useEffect, useState } from 'react'
 import { logout } from '../../services/auth'
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
 
 import './styles.css'
 
 const Order = props => {
 
-  const [purchases, setPurchases] = useState([])
   const [filterText, setFilterText] = useState('')
+  const [purchases, setPurchases] = useState([])
+  const [filterPurchase, setFilterPurchase] = useState([])
   const { getData } = useAuth()
   const { id } = getData()
 
@@ -23,7 +22,6 @@ const Order = props => {
       try {
         // const response = await api.get("/purchase", { params: id})
         const response = await getPurchases()
-
         setPurchases(response.data)
       } catch (error) {
         if (error.response.status === 401) logout()
@@ -32,10 +30,16 @@ const Order = props => {
   }, [id])
 
   useEffect(() => {
-    if (filterText) {
-      setPurchases(purchases.filter(purchase => purchase.name.includes(filterText)))
+    if (filterText !== '') {
+      const results = purchases.filter(purchase =>
+        purchase.name.toLowerCase().includes(filterText.toLowerCase())
+      )
+
+      setFilterPurchase(results)
+    } else {
+      setFilterPurchase(purchases)
     }
-  }, [filterText, purchases])
+  }, [filterText])
 
   function handleFilter(e) {
     setFilterText(e.target.value)
@@ -77,7 +81,7 @@ const Order = props => {
 
   function renderRows() {
     return (
-      purchases.map(purchase => (
+      filterPurchase.map(purchase => (
         <tr key={purchase.id}>
           <td>{purchase.id}</td>
           <td>{purchase.name}</td>
@@ -86,6 +90,7 @@ const Order = props => {
           <td>{definePaymentMethod(purchase)}</td>
           <td>{format(new Date(purchase.date), 'dd/MM/yyyy')}</td>
           <td>
+            <Button icon="plus" title="Ver mais detalhes"></Button>
             <Button icon="file-pdf" title="Gerar PDF" onClick={e => generatePDF()}></Button>
             <Button icon="shopping-bag" title="Listar Compras"></Button>
             <Button icon="edit" title="Editar Pedido"></Button>
