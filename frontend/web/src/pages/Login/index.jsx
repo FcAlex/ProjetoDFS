@@ -2,6 +2,7 @@ import { useState } from "react"
 import Button from "../../components/Button"
 import Input from "./Input"
 import api from "../../services/api"
+import { signIn } from "../../services/api_test"
 import logo from '../../assets/logo.svg'
 import { useToasts } from 'react-toast-notifications'
 
@@ -43,13 +44,15 @@ const Login = () => {
       toastError("Preencha e-mail e senha para continuar")
     } else {
       try {
-        const response = await api.post("/authentication", { email, password })
-        //const response = await signInService() // teste sem backend
-        const { token, user } = response?.data?.result
+        // const response = await api.post("/authentication", { email, password })
+        const response = await signIn() // teste sem backend
+        // const { token, user } = response?.data?.result
+        const { token, user } = response.result
         login(token, user)
         //login(response.token, response.user) // teste sem backend
         window.location.reload()
-      } catch {
+      } catch (err) {
+        console.log(err)
         toastError("Houve um problema com o login, verifique suas credenciais.")
       }
     }
