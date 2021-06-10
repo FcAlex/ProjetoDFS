@@ -15,6 +15,12 @@
   --header-height: 4.2rem;
   --header-width: 12rem;
   --first-col-width: 18%;
+
+  --red: #e74c3c;
+  --blue: #3498db;
+  --yellow: #f1c40f;
+  --green: #2ecc71;
+  --gray: #95a5a6;
 }
 
 li {

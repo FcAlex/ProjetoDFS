@@ -1,21 +1,28 @@
-import Content from './Header'
-import Header from './Header'
-import Footer from './Footer'
 import Button from '../Button'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import './styles.css'
+import { forwardRef } from 'react';
 
-const Modal = ({ trigger }) => (
-  <Popup trigger={ trigger } modal>
+const Modal = forwardRef(({ trigger, children, title, footer }, ref) => (
+  <Popup trigger={trigger} modal nested forwardRef={ref}> 
     {close => (
       <div className="modal">
-        <Button icon="times-circle" onClick={close}></Button>
-        <Header />
-        <Content />
-        <Footer />
+        <div className="modal-header">
+          <h1>{title}</h1>
+          <Button icon="times-circle" className="modal-close" onClick={close}></Button>
+        </div>
+
+        <div className="modal-content">
+          {children}
+        </div>
+
+        <div className="modal-footer">
+          {footer}
+        </div>
       </div>
     )}
   </Popup>
-)
+))
 
 export default Modal

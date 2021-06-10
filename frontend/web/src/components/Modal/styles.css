@@ -1,0 +1,36 @@
+.modal {
+  padding: 0.8rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.2px solid #eee;
+  margin-bottom: 0.5rem;
+}
+
+.modal-header h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.modal-header i {
+  color: var(--red);
+  font-size: 1.3rem;
+}
+
+.modal-footer {
+  border-top: 1.2px solid #eee;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-footer button {
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  margin: 0 5px;
+}
