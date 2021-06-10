@@ -2,33 +2,37 @@ import { format } from 'date-fns'
 import Button from '../../components/Button'
 
 import api from '../../services/api'
+import { purchases as getPurchases } from '../../services/api_test'
 import useAuth from '../../hooks/useAuth'
 import { useEffect, useState } from 'react'
 import { logout } from '../../services/auth'
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 import './styles.css'
 
 const Order = props => {
 
-  const [purchases, setPurchases] = useState([]) 
-  const [filterText, setFilterText] = useState('') 
+  const [purchases, setPurchases] = useState([])
+  const [filterText, setFilterText] = useState('')
   const { getData } = useAuth()
   const { id } = getData()
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await api.get("/purchase", { params: id})
-        console.log(response.data)
+        // const response = await api.get("/purchase", { params: id})
+        const response = await getPurchases()
+
         setPurchases(response.data)
       } catch (error) {
-        if(error.response.status === 401) logout()
+        if (error.response.status === 401) logout()
       }
     })()
   }, [id])
 
   useEffect(() => {
-    if(filterText) {
+    if (filterText) {
       setPurchases(purchases.filter(purchase => purchase.name.includes(filterText)))
     }
   }, [filterText, purchases])
@@ -38,7 +42,7 @@ const Order = props => {
   }
 
   function defineStatus(purchase) {
-    switch(purchase.status) {
+    switch (purchase.status) {
       case 1:
         return 'Emitido'
       case 2:
@@ -55,7 +59,7 @@ const Order = props => {
   }
 
   function definePaymentMethod(purchase) {
-    switch(purchase.paymentMethod) {
+    switch (purchase.paymentMethod) {
       case 1:
         return 'Crédito'
       case 2:
@@ -68,7 +72,7 @@ const Order = props => {
   }
 
   function generatePDF() {
-    
+
   }
 
   function renderRows() {
@@ -97,7 +101,7 @@ const Order = props => {
       <h1>Compras Realizadas</h1>
       <div className="listaCompras">
         <div className="filter">
-          <input type="text" className="filter-input" onChange={handleFilter} value={filterText}/>
+          <input type="text" className="filter-input" onChange={handleFilter} value={filterText} />
           <Button bg="green" icon="filter">Filtrar</Button>
         </div>
 
