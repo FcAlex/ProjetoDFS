@@ -1,6 +1,7 @@
 import Content from './Header'
 import Header from './Header'
 import Footer from './Footer'
+import Button from '../Button'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
@@ -16,3 +17,5 @@ const Modal = ({ trigger }) => (
     )}
   </Popup>
 )
+
+export default Modal

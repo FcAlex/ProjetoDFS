@@ -13,11 +13,35 @@ const Button = ({ icon, bg, title, ...props }) => {
     )
   }
 
+  const styleContent = {
+    width: 'auto', 
+    padding: '5px 10px', 
+    display: 'flex', 
+    alignItems: 'center',
+    userSelect: 'none' 
+  }
+
   if (title) return (
-    <Popup trigger={btnRender()} position="bottom center" on="hover">
+    <Popup 
+      trigger={btnRender()} 
+      position="bottom center" 
+      on="hover" 
+      offsetX={15}
+      offsetY={-3}
+      contentStyle={styleContent}
+      keepTooltipInside
+      mouseEnterDelay={300}>
       <span className="tooltip"> {title} </span>
     </Popup>
   )
+
+ /* 
+ width: auto !important;
+  padding: 5px 10px;
+  display: flex !important;
+  align-items: center;
+  user-select: none;
+ */
   else return btnRender()
 }
 

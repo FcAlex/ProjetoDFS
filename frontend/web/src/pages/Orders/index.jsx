@@ -7,6 +7,8 @@ import useAuth from '../../hooks/useAuth'
 import { useEffect, useState } from 'react'
 import { logout } from '../../services/auth'
 
+import Input from '../../components/Input'
+
 import './styles.css'
 
 const Order = props => {
@@ -23,6 +25,7 @@ const Order = props => {
         // const response = await api.get("/purchase", { params: id})
         const response = await getPurchases()
         setPurchases(response.data)
+        setFilterPurchase(response.data)
       } catch (error) {
         if (error.response.status === 401) logout()
       }
@@ -39,7 +42,7 @@ const Order = props => {
     } else {
       setFilterPurchase(purchases)
     }
-  }, [filterText])
+  }, [filterText, purchases])
 
   function handleFilter(e) {
     setFilterText(e.target.value)
@@ -106,8 +109,13 @@ const Order = props => {
       <h1>Compras Realizadas</h1>
       <div className="listaCompras">
         <div className="filter">
-          <input type="text" className="filter-input" onChange={handleFilter} value={filterText} />
-          <Button bg="green" icon="filter">Filtrar</Button>
+          <Input 
+            type="text" 
+            onChange={handleFilter} 
+            value={filterText} 
+            placeholder="Realize sua busca"
+            icon="filter"
+            />
         </div>
 
         <table>
