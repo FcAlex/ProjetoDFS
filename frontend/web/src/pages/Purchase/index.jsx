@@ -1,19 +1,31 @@
 import { Steps, Step } from 'react-step-builder'
+import Company from './Cards/Company'
+import Product from './Cards/Product'
+import Payment from './Cards/Payment'
+import Confirmation from './Cards/Confirmation'
 
-const Navigation = props => (
-  <div>
-    <button onClick={props.prev}>Previous</button>
-    <button onClick={props.next}>Next</button>
-  </div>
+import './styles.css'
+
+const HeaderNav = props => (
+  <nav className="navegation">
+    <ul>
+      <li>Loja</li>
+      <li>Produto</li>
+      <li>Pagamento</li>
+      <li>Confirmação</li>
+    </ul>
+  </nav>
 )
 
 const Purchase = props => {
   return (
-    <main>
-      <Steps config={{ navigation: { component: Navigation, location: "before" } }}>
-        <Step title="My First Step" component={() => <h1>Step1</h1>} />
-        <Step title="My Second Step" component={() => <h1>Step2</h1>} />
-        <Step title="My Third Step" component={() => <h1>Step3</h1>} />
+    <main className="purchase">
+      <h1>Comprar</h1>
+      <Steps config={{ navigation: { component: HeaderNav, location: "before" } }}>
+        <Step title="Selecione a loja" component={Company} />
+        <Step title="Selecione o item" component={Product} />
+        <Step title="Selecione a forma de pagamento" component={Payment} />
+        <Step title="Confirme a compra" component={Confirmation} />
       </Steps>
     </main>
   )

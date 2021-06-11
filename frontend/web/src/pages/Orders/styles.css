@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .filter .filter-input {
@@ -57,6 +58,7 @@
 .orders h1 {
   font-size: 1.5rem;
   padding-bottom: 1rem;
+  margin-bottom: 1rem;
   border-bottom: 1px solid #eee;
   text-align: center;
 }
