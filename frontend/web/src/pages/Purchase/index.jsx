@@ -1,8 +1,8 @@
 import { Steps, Step } from 'react-step-builder'
-import Company from './Cards/Company'
-import Product from './Cards/Product'
-import Payment from './Cards/Payment'
-import Confirmation from './Cards/Confirmation'
+import Company from './Steps/Company'
+import Product from './Steps/Product'
+import Payment from './Steps/Payment'
+import Confirmation from './Steps/Confirmation'
 
 import './styles.css'
 
