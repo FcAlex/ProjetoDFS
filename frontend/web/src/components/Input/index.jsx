@@ -1,8 +1,8 @@
 import './styles.css' 
 
-const InputIcon = ({icon, label, helper, ...props}) => {
+const InputIcon = ({icon, label, helper, className, ...props}) => {
   return (
-    <div className="form-group">
+    <div className={className}>
       { label ? <label>{label}</label> : false}
       
       <div className="input-group">

@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 import Button from '../../components/Button'
 
 import api from '../../services/api'
-// import { purchases as getPurchases } from '../../services/api_test'
+import { purchases as getPurchases } from '../../services/api_test'
 import useAuth from '../../hooks/useAuth'
 import { useEffect, useState } from 'react'
 import { logout } from '../../services/auth'
@@ -22,8 +22,8 @@ const Order = props => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await api.get("/purchase", { params: id })
-        // const response = await getPurchases()
+        // const response = await api.get("/purchase", { params: id })
+        const response = await getPurchases()
         setPurchases(response.data)
         setFilterPurchase(response.data)
       } catch (error) {
@@ -96,11 +96,8 @@ const Order = props => {
             <Button icon="plus" title="Ver mais detalhes"></Button>
             <Button icon="file-pdf" title="Gerar PDF" onClick={e => generatePDF()}></Button>
             <Button icon="shopping-bag" title="Listar Compras"></Button>
-            <Button icon="edit" title="Editar Pedido"></Button>
-            <Button 
-              icon="trash" 
-              title="Deletar pedido"
-              ></Button>
+            <Button icon="tag" title="Editar Nome do pedido"></Button>
+            <Button icon="trash" title="Deletar pedido"></Button>
           </td>
         </tr>
       ))
@@ -113,6 +110,7 @@ const Order = props => {
       <div className="listaCompras">
         <div className="filter">
           <Input
+            className="filter-input"
             type="text"
             onChange={handleFilter}
             value={filterText}

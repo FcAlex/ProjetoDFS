@@ -8,8 +8,8 @@
   justify-content: center;
 }
 
-.filter input {
-  width: 30rem;
+.filter .filter-input {
+  width: 50%;
 }
 
 .filter button {
@@ -25,7 +25,7 @@
   color: #f1c40f;
 }
 
-.orders .fa-edit {
+.orders .fa-tag {
   color: #2ecc71;
 }
 
