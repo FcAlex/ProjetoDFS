@@ -2,7 +2,7 @@ import './styles.css'
 
 const InputIcon = ({icon, label, helper, className, ...props}) => {
   return (
-    <div className={className}>
+    <div className={`form-group ${className}`}>
       { label ? <label>{label}</label> : false}
       
       <div className="input-group">

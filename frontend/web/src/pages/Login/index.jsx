@@ -51,7 +51,6 @@ const Login = () => {
         login(token, user)
         window.location.reload()
       } catch (err) {
-        console.log(err)
         toastError("Houve um problema com o login, verifique suas credenciais.")
       }
     }

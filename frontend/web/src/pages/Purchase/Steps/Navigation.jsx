@@ -1,9 +1,10 @@
+import Button from '../../../components/Button'
 
 const Navigation = props => {
   return (
     <nav className="navegation">
-      <button onClick={props.prev}>Previous</button>
-      <button onClick={props.next}>Next</button>
+      <Button onClick={props.prev} icon="arrow-left" bg="blue">Anterior</Button>
+      <Button onClick={props.next} icon="arrow-right" bg="blue">Próximo</Button>
     </nav>
   )
 }

@@ -30,3 +30,18 @@ export const purchases = () => {
     }, 1000)
   })
 }
+
+export const companies = () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({
+        data: [
+          { id: 102, tradingName: 'Loja A', legalName: 'Soluções LTDA' },
+          { id: 103, tradingName: 'Loja B', legalName: 'Soluções LTDA' },
+          { id: 104, tradingName: 'Loja C', legalName: 'Soluções LTDA' },
+          { id: 105, tradingName: 'Loja D', legalName: 'Soluções LTDA' },
+        ]
+      })
+    }, 1000)
+  })
+}
