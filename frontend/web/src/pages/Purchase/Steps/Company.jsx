@@ -3,17 +3,17 @@ import Card from './Card'
 import api from '../../../services/api'
 import { companies as _companies } from '../../../services/api_test'
 
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { logout } from '../../../services/auth'
 
 import bgDefault from '../../../assets/bgDefault.svg'
+import { StepContext } from '../../../contexts/steps'
 
 const Company = ({ title, ...props }) => {
 
   const [companies, setCompanies] = useState([])
-  const [selectedCompany, setSelectedCompany] = useState(null)
-  const [disableNext, setDisableNext] = useState(true)
-
+  const { handleNextStep, selectedCompany, updateSelectedCompany } = useContext(StepContext)
+ 
   async function getCompanies() {
     try {
       // const response = await api.get("/company")
@@ -31,12 +31,12 @@ const Company = ({ title, ...props }) => {
 
   useEffect(() => {
     if(!selectedCompany?.checkbox.checked) {
-      setSelectedCompany(null)
-      setDisableNext(true)
+      updateSelectedCompany(null)
+      handleNextStep(true)
     } else {
-      setDisableNext(false)
+      handleNextStep(false)
     }
-  }, [selectedCompany])
+  }, [selectedCompany, handleNextStep, updateSelectedCompany])
 
   function select(index) {
     const item = document.querySelectorAll('.companies-items')[index]
@@ -51,11 +51,11 @@ const Company = ({ title, ...props }) => {
       selectedCompany.item.classList.remove('selected')
     }
 
-    setSelectedCompany({item, checkbox})
+    updateSelectedCompany({item, checkbox})
   }
 
   return (
-    <Card title={title} navigation={props} disable={disableNext}>
+    <Card title={title} >
       <ul className="companies">
         { companies.map((company, index) => (
           <li

@@ -23,14 +23,17 @@
 }
 
 .card h2 {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  font-weight: 600;
 }
 
 .navegation {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 auto;
   margin-top: 2rem;
+  width: 90%;
 }
 
 .companies {
