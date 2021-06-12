@@ -1,7 +1,7 @@
 
-const Card = ({title, children}) => {
+const Card = ({title, children, className}) => {
   return (
-    <section className="card">
+    <section className={`${className} card`}>
       <h2>{title}</h2>
       <section className="card-content">
         {children}

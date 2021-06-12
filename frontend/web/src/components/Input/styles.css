@@ -17,10 +17,13 @@
   border: 1px solid #ced4da;
   font-size: 1rem;
   padding: 13px;
-  padding-left: 2.2rem;
   width: 100%;
   border-radius: 5px;
   outline: none;
+}
+
+.input-group .withIcon {
+  padding-left: 2.2rem;
 }
 
 .input-group input:focus {
