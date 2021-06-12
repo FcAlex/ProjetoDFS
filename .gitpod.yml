@@ -1,1 +1,4 @@
-image: gitpod/workspace-dotnet
+
+tasks:
+  - init: cd frontend/web && yarn install
+    command: yarn start

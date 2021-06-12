@@ -12,6 +12,7 @@ const Company = ({ title, ...props }) => {
 
   const [companies, setCompanies] = useState([])
   const [selectedCompany, setSelectedCompany] = useState(null)
+  const [disableNext, setDisableNext] = useState(true)
 
   async function getCompanies() {
     try {
@@ -29,8 +30,12 @@ const Company = ({ title, ...props }) => {
   }, [])
 
   useEffect(() => {
-    if(!selectedCompany?.checkbox.checked) setSelectedCompany(null)
-    console.log(selectedCompany)
+    if(!selectedCompany?.checkbox.checked) {
+      setSelectedCompany(null)
+      setDisableNext(true)
+    } else {
+      setDisableNext(false)
+    }
   }, [selectedCompany])
 
   function select(index) {
@@ -50,13 +55,18 @@ const Company = ({ title, ...props }) => {
   }
 
   return (
-    <Card title={title} navigation={props}>
+    <Card title={title} navigation={props} disable={disableNext}>
       <ul className="companies">
         { companies.map((company, index) => (
-          <li key={company.id} onClick={() => select(index)} className="companies-items">
+          <li
+            key={company.id} 
+            onClick={() => select(index)} 
+            className="companies-items">
+
             <input type="checkbox" className="checkbox-company" name={index}/>
             <img src={bgDefault} alt="Imagem da Loja" />
             <h3>{company.tradingName}</h3>
+
           </li>
         )) }
       </ul>
