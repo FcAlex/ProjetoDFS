@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Server.Extensions;
 using Server.Resources.Saving;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace Server.Controllers
 {
@@ -38,10 +39,11 @@ namespace Server.Controllers
             return _mapper.Map<Product, ProductResource>(product);
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<ProductResource>> GetProductsByCompanyId([FromQuery] int id)
+        [HttpGet("company/{id}")]
+        public async Task<IEnumerable<ProductResource>> GetProductsByCompanyId(int id)
         {
             var products = await _productService.GetProductsByCompanyId(id);
+            Console.WriteLine(products.GetEnumerator().Current is null);
             return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
         }
 

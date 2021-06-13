@@ -12,7 +12,7 @@ namespace Server.Persistence.Repositories
   public class ProductRepository : BaseRepository, IProductRepository
   {
 
-    ProductRepository(AppDbContext context) : base(context) { }
+    public ProductRepository(AppDbContext context) : base(context) { }
 
     public async Task AddAsync(Product item)
     {
@@ -26,7 +26,7 @@ namespace Server.Persistence.Repositories
 
     public async Task<IEnumerable<Product>> GetProductsByCompanyId(int companyId)
     {
-        return await _context.Products.Where(product => product.Id == companyId).ToListAsync();
+      return await _context.Products.Where(product => product.CompanyId == companyId).ToListAsync();
     }
 
     public async Task<IEnumerable<Product>> ListAllAsync()

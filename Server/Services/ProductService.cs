@@ -20,7 +20,6 @@ namespace Server.Services
       _productRepository = productRepository;
       _unitOfWork = unitOfWork;
     }
-
     public async Task<IEnumerable<Product>> ListAllAsync() => await _productRepository.ListAllAsync();
     public async Task<Product> FindById(int id) => await _productRepository.FindByIdAsync(id);
 
