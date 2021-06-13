@@ -82,7 +82,7 @@ namespace Server.Controllers
             return Ok(_mapper.Map<Purchase, PurchaseResource>(result.Resource));
         }
 
-        [HttpGet("id")]
+        [HttpGet]
         public async Task<IEnumerable<PurchaseResource>> GetPurchaseByUser([FromQuery] int userId)
         {
             var purchases = await _purchaseService.GetPurchaseByUserAsync(userId);

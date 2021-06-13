@@ -16,12 +16,13 @@ const Company = ({ title, ...props }) => {
  
   async function getCompanies() {
     try {
-      // const response = await api.get("/company")
-      const response = await _companies("/company")
-
+      const response = await api.get("/company")
+      // const response = await _companies("/company")
+      console.log(response.data)
+      
       setCompanies(response.data)
     } catch (error) {
-      if (error?.data.status === 401) logout();
+      if (error?.data?.status === 401) logout();
     }
   }
 
@@ -54,6 +55,11 @@ const Company = ({ title, ...props }) => {
     updateSelectedCompany({item, checkbox})
   }
 
+  function checkImageURL(company) {
+    if(!company?.imageURL || company.imageURL === '') return bgDefault
+    else return company.imageURL
+  }
+
   return (
     <Card title={title} >
       <ul className="companies">
@@ -64,8 +70,8 @@ const Company = ({ title, ...props }) => {
             className="companies-items">
 
             <input type="checkbox" className="checkbox-company" name={index}/>
-            <img src={bgDefault} alt="Imagem da Loja" />
-            <h3>{company.tradingName}</h3>
+            <img src={checkImageURL(company)} alt="Imagem da Loja" />
+            <h3>{company.companyName}</h3>
 
           </li>
         )) }

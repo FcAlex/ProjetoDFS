@@ -118,7 +118,14 @@ namespace Server.Persistence.Contexts
 
             entity.HasMany(company => company.Products).WithOne(product => product.Company).HasForeignKey(product => product.CompanyId);
 
-            entity.HasData(new Company { Cnpj="00.000.000/0001-99", CompanyName="Alex Sousa ME", FantasyName="FcoAlex", Id=10 });
+            entity.HasData(new Company 
+            { 
+                Cnpj="47.960.950/0001-21", 
+                CompanyName="MAGAZINE LUIZA S/A", 
+                FantasyName="", 
+                Id=10, 
+                imageURL="https://www.eletrolar.com/wp-content/uploads/2019/10/0.png" 
+            });
         }
 
         private static void CreateTableUser(ModelBuilder builder)

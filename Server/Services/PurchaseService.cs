@@ -25,7 +25,6 @@ namespace Server.Services
 
         public async Task<Purchase> FindByIdAsync(int id)
         {
-
             var purchase = await _purchaseRepository.FindByIdAsync(id);
             return purchase;
         }
@@ -47,17 +46,17 @@ namespace Server.Services
 
         public async Task<Response<Purchase>> UpdateAsync(int id, Purchase purchase)
         {
-            var existingUser = await _purchaseRepository.FindByIdAsync(id);
+            var existingPurchase = await _purchaseRepository.FindByIdAsync(id);
 
-            if (existingUser == null)
-                return new Response<Purchase>("User not found");
+            if (existingPurchase == null)
+                return new Response<Purchase>("Purchase not found");
 
             try
             {
-                _purchaseRepository.Update(existingUser);
+                _purchaseRepository.Update(existingPurchase);
                 await _unitOfWork.CompleteAsync();
 
-                return new Response<Purchase>(existingUser);
+                return new Response<Purchase>(existingPurchase);
             }
             catch (Exception ex)
             {

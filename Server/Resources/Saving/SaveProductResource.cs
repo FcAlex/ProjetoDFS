@@ -1,13 +1,17 @@
-﻿
-namespace Server.Resources
+using System.ComponentModel.DataAnnotations;
+
+namespace Server.Resources.Saving
 {
-    public class ProductResource
+    public class SaveProductResource
     {
-        public int Id { get; set; }
+        [Required]
+        [StringLength(30, MinimumLength = 5)]
         public string Name { get; set; }
         public string Description { get; set; }
+        [Required]
         public float Value { get; set; }
         public string Observation { get; set; }
+        [Required]
         public int CompanyId { get; set; }
     }
 }

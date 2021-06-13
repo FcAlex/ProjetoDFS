@@ -8,5 +8,6 @@ namespace Server.Domains.Repositories
 {
     public interface IProductRepository : IBaseRepository<Product>
     {
+        Task<IEnumerable<Product>> GetProductsByCompanyId(int companyId);
     }
 }

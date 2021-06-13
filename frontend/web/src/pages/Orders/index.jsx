@@ -22,8 +22,8 @@ const Order = props => {
   useEffect(() => {
     (async () => {
       try {
-        // const response = await api.get("/purchase", { params: id })
-        const response = await getPurchases()
+        const response = await api.get("/purchase", { params: id })
+        // const response = await getPurchases()
         setPurchases(response.data)
         setFilterPurchase(response.data)
       } catch (error) {

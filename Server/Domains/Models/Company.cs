@@ -12,6 +12,8 @@ namespace Server.Domains.Models
         public string FantasyName { get; set; }
         public string CompanyName { get; set; }
         public string Cnpj { get; set; }
+        public string imageURL {get; set;}
         public IList<Product> Products { get; set; }
+
     }
 }
