@@ -13,7 +13,7 @@ const Company = ({ title, ...props }) => {
 
   const [companies, setCompanies] = useState([])
   const [selectedItemCompany, setSelectedItemCompany] = useState(null)
-  const { handleNextStep, selectedCompany, updateSelectedCompany } = useContext(StepContext)
+  const { handleNextStep, updateSelectedCompany } = useContext(StepContext)
  
   async function getCompanies() {
     try {

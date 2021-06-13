@@ -8,6 +8,19 @@ const StepProvider = props => {
   const [selectedCompany, setSelectedCompany] = useState(null)
   const [selectedProducts, setSelectedProducts] = useState([])
 
+  function addSelectedProduct(product) {
+    if(selectedProducts.includes(product)) return
+
+    selectedProducts.push(product)
+    setSelectedProducts([...selectedProducts])
+  }
+
+  function removeSelectedProduct(product) {
+    const index = selectedProducts.indexOf(product)
+    if(index < 0) return
+    setSelectedProducts([...selectedProducts.splice(index, 1)])
+  }
+
   function handleNextStep(value) {
     setDisableNext(value)
   }
@@ -21,7 +34,10 @@ const StepProvider = props => {
       disableNext,
       handleNextStep,
       selectedCompany, 
-      updateSelectedCompany
+      updateSelectedCompany,
+      selectedProducts,
+      addSelectedProduct,
+      removeSelectedProduct
     }}>
       {props.children}
     </StepContext.Provider>

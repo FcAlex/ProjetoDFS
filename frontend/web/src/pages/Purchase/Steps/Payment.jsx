@@ -43,7 +43,7 @@ const Payment = ({ title, ...props }) => {
         />
         <Input type="text" placeholder="Nome do titular" name="name" value={state.name}
           onChange={e => dispatch({type: 'name', value: e.target.value})}
-          onFocus={setFocus} maxlength={25}
+          onFocus={setFocus} maxLength={25}
         />
         <Input type="text" placeholder="Data de expiração" name="expiry" value={state.expiry}
           onChange={e => dispatch({type: 'expiry', value: e.target.value})}
