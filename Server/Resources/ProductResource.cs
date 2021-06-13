@@ -9,7 +9,6 @@ namespace Server.Resources
         public float Value { get; set; }
         public string Observation { get; set; }
         public int CompanyId { get; set; }
-
         public string imageURL { get; set; }
     }
 }
