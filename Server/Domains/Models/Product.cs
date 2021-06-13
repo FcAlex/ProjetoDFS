@@ -16,5 +16,6 @@ namespace Server.Domains.Models
         public IList<Purchase> Purchases { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
+        public string imageURL { get; set; }
     }
 }

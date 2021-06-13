@@ -13,5 +13,6 @@ namespace Server.Domains.Models
         public string Password { get; set; }
         public string Cpf { get; set; }
         public IList<Purchase> Purchases { get; set; }
+        public string imageURL { get; set; }
     }
 }

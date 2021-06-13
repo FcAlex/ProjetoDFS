@@ -54,6 +54,7 @@ namespace Server.Persistence.Contexts
                     Description = "Salgadinho",
                     Name = "Cheetos",
                     Observation = "n.a",
+                    imageURL="https://a-static.mlcdn.com.br/618x463/cheetos-tubo-elma-chips-sabor-queijo-cheddar-45g/drogariaaraujosa/107646/d56f5c254b621b54d99a402b6cd80ff6.jpg"
                 }
             );
         }
@@ -147,7 +148,15 @@ namespace Server.Persistence.Contexts
 
             entity.HasMany(user => user.Purchases).WithOne(purchase => purchase.User).HasForeignKey(purchase => purchase.UserId);
 
-            entity.HasData(new User { Id=101, Cpf="000.000.000-00", Email="alex@example.com", Name="Alex Sousa", Password="12345678" });
+            entity.HasData(new User 
+            { 
+                Id=101, 
+                Cpf="000.000.000-00", 
+                Email="alex@example.com", 
+                Name="Alex Sousa", 
+                Password="12345678",
+                imageURL="https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg"
+            });
         }
     }
 }
