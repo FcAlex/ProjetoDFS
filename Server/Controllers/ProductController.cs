@@ -43,7 +43,6 @@ namespace Server.Controllers
         public async Task<IEnumerable<ProductResource>> GetProductsByCompanyId(int id)
         {
             var products = await _productService.GetProductsByCompanyId(id);
-            Console.WriteLine(products.GetEnumerator().Current is null);
             return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
         }
 

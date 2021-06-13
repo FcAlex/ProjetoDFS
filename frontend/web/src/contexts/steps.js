@@ -6,6 +6,7 @@ const StepProvider = props => {
 
   const [disableNext, setDisableNext] = useState(true)
   const [selectedCompany, setSelectedCompany] = useState(null)
+  const [selectedProducts, setSelectedProducts] = useState([])
 
   function handleNextStep(value) {
     setDisableNext(value)
