@@ -1,5 +1,6 @@
 import Card from './Card'
 import api from '../../../services/api'
+import { products as _products } from '../../../services/api_test'
 import { useContext, useEffect, useState } from 'react'
 import { StepContext } from '../../../contexts/steps'
 import { checkImageURL } from '../../../helpers'
@@ -16,7 +17,8 @@ const Product = ({ title, ...props }) => {
   
   async function getProducts() {
     try {
-      const response = await api.get(`/product/company/${selectedCompany.id}`)
+      // const response = await api.get(`/product/company/${selectedCompany.id}`)
+      const response = await _products()
 
       setProducts(response.data)
     } catch (error) {
