@@ -66,19 +66,13 @@ const Payment = ({ title, ...props }) => {
     <h1>Dinheiro</h1>
   )
 
-  const Nav = ({ allSteps, jump, current }) => {
-
-    function selectStep(e, current) {
-      jump(current)
-    }
-
-    return (<ul className="nav-steps">
-      { allSteps.map(step => (
-        <li key={step.order} onClick={() => jump(step.order)} className={step.order === current ? 'step-selected' : ''}> { step.title} </li>
+  const Nav = ({ allSteps, jump, current }) => (
+    <ul className="nav-steps">
+      {allSteps.map(step => (
+        <li key={step.order} onClick={() => jump(step.order)} className={step.order === current ? 'step-selected' : ''}> {step.title} </li>
       ))}
     </ul>
-    )
-  }
+  )
 
   return (
     <Card title={title} navigation={props} className="payment">
