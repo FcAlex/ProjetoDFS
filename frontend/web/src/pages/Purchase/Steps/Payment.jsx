@@ -17,46 +17,49 @@ const initialState = {
 
 const Payment = ({ title, ...props }) => {
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const Credit = () => {
 
-  function setFocus(e) {
-    dispatch({ type: 'focus', value: e.target.name })
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    function reducer(state, action) {
+      return { ...state, [action.type]: action.value.replaceAll('_', '') }
+    }
+
+    function setFocus(e) {
+      dispatch({ type: 'focus', value: e.target.name })
+    }
+
+    return (
+      <div className="payment-options">
+        <PaymentCard
+          cvc={state.cvc}
+          expiry={state.expiry}
+          focused={state.focus}
+          name={state.name}
+          number={state.number}
+        />
+
+        <form className="info-payment">
+          <Input type="tel" placeholder="Número do Cartão" name="number" value={state.number}
+            onChange={e => dispatch({ type: 'number', value: e.target.value })}
+            onFocus={setFocus} mask="9999 9999 9999 9999"
+          />
+          <Input type="text" placeholder="Nome do titular" name="name" value={state.name}
+            onChange={e => dispatch({ type: 'name', value: e.target.value })}
+            onFocus={setFocus} maxLength={25}
+          />
+          <Input type="text" placeholder="Data de expiração" name="expiry" value={state.expiry}
+            onChange={e => dispatch({ type: 'expiry', value: e.target.value })}
+            onFocus={setFocus} mask="99/99"
+          />
+          <Input type="text" placeholder="CVC" value={state.cvc} name="cvc"
+            onChange={e => dispatch({ type: 'cvc', value: e.target.value })}
+            onFocus={setFocus} mask="999"
+          />
+        </form>
+      </div>
+    )
   }
-
-  function reducer(state, action) {
-    return { ...state, [action.type]: action.value.replaceAll('_', '') }
-  }
-
-  const Credit = (props) => (
-    <div className="payment-options">
-      <PaymentCard
-        cvc={state.cvc}
-        expiry={state.expiry}
-        focused={state.focus}
-        name={state.name}
-        number={state.number}
-      />
-
-      <form className="info-payment">
-        <Input type="tel" placeholder="Número do Cartão" name="number" value={state.number}
-          onChange={e => dispatch({ type: 'number', value: e.target.value })}
-          onFocus={setFocus} mask="9999 9999 9999 9999"
-        />
-        <Input type="text" placeholder="Nome do titular" name="name" value={state.name}
-          onChange={e => dispatch({ type: 'name', value: e.target.value })}
-          onFocus={setFocus} maxLength={25}
-        />
-        <Input type="text" placeholder="Data de expiração" name="expiry" value={state.expiry}
-          onChange={e => dispatch({ type: 'expiry', value: e.target.value })}
-          onFocus={setFocus} mask="99/99"
-        />
-        <Input type="text" placeholder="CVC" value={state.cvc} name="cvc"
-          onChange={e => dispatch({ type: 'cvc', value: e.target.value })}
-          onFocus={setFocus} mask="999"
-        />
-      </form>
-    </div>
-  )
 
   const Boleto = () => (
     <h1>Boleto</h1>
