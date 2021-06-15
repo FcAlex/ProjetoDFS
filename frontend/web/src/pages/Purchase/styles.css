@@ -3,7 +3,7 @@
   padding: 1rem;
 }
 
-.purchase h1, .card h2 {
+.purchase h1:not(.title-cash), .card h2 {
   font-size: 1.5rem;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
@@ -177,4 +177,47 @@
   background-color: var(--blue);
   color: #fff;
   border-radius: 5px 5px 0px 0;
+}
+
+.boleto {
+  width: 50%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.boleto button {
+  float: right;
+}
+
+.cash {
+  width: 60%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  color: #222;
+}
+
+.title-cash {
+  font-size: 3rem;
+  font-weight: 400;
+  font-variant-caps: all-small-caps;
+  text-align: center;
+}
+
+.cash span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cash i {
+  font-size: 5rem;
+}
+
+.cash img {
+  transform: scaleX(-1);
 }

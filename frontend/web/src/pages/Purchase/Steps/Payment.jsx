@@ -7,6 +7,8 @@ import 'react-credit-cards/es/styles-compiled.css'
 import { useReducer } from 'react';
 import Button from '../../../components/Button'
 
+import imgCash from '../../../assets/cash.png'
+
 const initialState = {
   cvc: '',
   expiry: '',
@@ -42,19 +44,19 @@ const Payment = ({ title, ...props }) => {
         <form className="info-payment">
           <Input type="tel" placeholder="Número do Cartão" name="number" value={state.number}
             onChange={e => dispatch({ type: 'number', value: e.target.value })}
-            onFocus={setFocus} mask="9999 9999 9999 9999"
+            onFocus={setFocus} mask="9999 9999 9999 9999" required
           />
           <Input type="text" placeholder="Nome do titular" name="name" value={state.name}
             onChange={e => dispatch({ type: 'name', value: e.target.value })}
-            onFocus={setFocus} maxLength={25}
+            onFocus={setFocus} maxLength={25} required
           />
           <Input type="text" placeholder="Data de expiração" name="expiry" value={state.expiry}
             onChange={e => dispatch({ type: 'expiry', value: e.target.value })}
-            onFocus={setFocus} mask="99/99"
+            onFocus={setFocus} mask="99/99" required
           />
           <Input type="text" placeholder="CVC" value={state.cvc} name="cvc"
             onChange={e => dispatch({ type: 'cvc', value: e.target.value })}
-            onFocus={setFocus} mask="999"
+            onFocus={setFocus} mask="999" required
           />
         </form>
       </div>
@@ -62,11 +64,38 @@ const Payment = ({ title, ...props }) => {
   }
 
   const Boleto = () => (
-    <h1>Boleto</h1>
+    <form className="boleto">
+      <Input type="text" placeholder="Nome completo" name="nameBoleto" //value={state.number}
+        // onChange={e => dispatch({ type: 'number', value: e.target.value })}
+        // onFocus={setFocus} 
+        required
+      />
+      <Input type="tel" placeholder="Número" name="number" //value={state.number}
+        // onChange={e => dispatch({ type: 'number', value: e.target.value })}
+        // onFocus={setFocus} 
+        mask="999.999.999-99" required
+      />
+      <Input type="tel" placeholder="Telefone" name="cpf" //value={state.number}
+        // onChange={e => dispatch({ type: 'number', value: e.target.value })}
+        // onFocus={setFocus} 
+        mask="(99) 9 9999-9999" required
+      />
+      <Input type="email" placeholder="Email (Opcional)" name="email" //value={state.number}
+        // onChange={e => dispatch({ type: 'number', value: e.target.value })}
+        // onFocus={setFocus} 
+      />
+      <Button bg="blue">Gerar Boleto</Button>
+    </form>
   )
 
   const Cash = () => (
-    <h1>Dinheiro</h1>
+    <div className="cash">
+      <span>
+        <i class="fas fa-exclamation-circle"></i>
+        <h1 className="title-cash">O pagamento será realizado no momento do recebimento</h1>
+      </span>
+      <img src={imgCash} alt="Pagamento em dinheiro" />
+    </div>
   )
 
   const Nav = ({ allSteps, jump, current }) => (
