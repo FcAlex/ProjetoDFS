@@ -8,6 +8,7 @@ import './styles.css'
 import Navigation from './Steps/Navigation'
 import StepProvider, { StepContext } from '../../contexts/steps'
 import { useContext } from 'react'
+import Address from './Steps/Address'
 
 const Purchase = props => {
 
@@ -23,6 +24,7 @@ const Purchase = props => {
           <Step title="Selecione a loja" component={Company} />
           <Step title="Selecione o item" component={Product} />
           <Step title="Selecione a forma de pagamento" component={Payment} />
+          <Step title="Endereço" component={Address} />
           <Step title="Confirme a compra" component={Confirmation} />
         </Steps>
       </main>

@@ -7,6 +7,21 @@ const StepProvider = props => {
   const [disableNext, setDisableNext] = useState(true)
   const [selectedCompany, setSelectedCompany] = useState(null)
   const [selectedProducts, setSelectedProducts] = useState([])
+  const [boletoInfo, setBoletoInfo] = useState(null)
+  const [creditInfo, setCreditInfo] = useState(null)
+  const [paymentInCash, setPaymentInCash] = useState(false)
+
+  function handlePaymentInCash(inCash) {
+   setPaymentInCash(inCash) 
+  }
+
+  function updateBoletoInfo(boletoInfo) {
+    setBoletoInfo(boletoInfo)
+  }
+
+  function updateCreditInfo(creditInfo) {
+    setCreditInfo(creditInfo)
+  }
 
   function addSelectedProduct(product) {
     if(selectedProducts.includes(product)) return
@@ -37,7 +52,13 @@ const StepProvider = props => {
       updateSelectedCompany,
       selectedProducts,
       addSelectedProduct,
-      removeSelectedProduct
+      removeSelectedProduct,
+      updateBoletoInfo,
+      handlePaymentInCash,
+      updateCreditInfo,
+      boletoInfo,
+      creditInfo,
+      paymentInCash
     }}>
       {props.children}
     </StepContext.Provider>
