@@ -11,8 +11,8 @@ namespace Server.Domains.Helpers
         [Description("Credit Card")]
         CreditCard = 1,
 
-        [Description("Debit Card")]
-        DebitCard = 2,
+        [Description("Boleto")]
+        Boleto = 2,
 
         [Description("In Cash")]
         InCash = 3,

@@ -9,7 +9,7 @@ const Product = ({ title, ...props }) => {
 
   const [products, setProducts] = useState([])
   const { 
-    selectedCompany, 
+    clearSelectedProduct, 
     selectedProducts, 
     addSelectedProduct, 
     removeSelectedProduct,
@@ -29,7 +29,10 @@ const Product = ({ title, ...props }) => {
   useEffect(() => {
     getProducts()
     handleNextStep(true)
-  }, [])
+  }, [handleNextStep])
+
+  // todo: use o hook useCallback para utilizar clearSelectedProduct() e limpar a lista de produtos
+  // ao iniciar a lista, de forma que no contexto não haja produtos anteriores a atual seleção
 
   function select(index) {
     const item = document.querySelectorAll('.products-items')[index]

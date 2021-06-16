@@ -4,15 +4,18 @@ export const StepContext = createContext({})
 
 const StepProvider = props => {
 
+  const TYPE = { BOLETO: 2, INCASH: 3, CREDIT: 1 }
+
   const [disableNext, setDisableNext] = useState(true)
   const [selectedCompany, setSelectedCompany] = useState(null)
   const [selectedProducts, setSelectedProducts] = useState([])
   const [boletoInfo, setBoletoInfo] = useState(null)
   const [creditInfo, setCreditInfo] = useState(null)
-  const [paymentInCash, setPaymentInCash] = useState(false)
+  const [typeOfPayment, setTypeOfPayment] = useState(TYPE.CREDIT)
 
-  function handlePaymentInCash(inCash) {
-   setPaymentInCash(inCash) 
+  function handleTypeOfPayment(type) {
+    if(type === TYPE.BOLETO || type === TYPE.INCASH || type === TYPE.CREDIT)
+      setTypeOfPayment(type)
   }
 
   function updateBoletoInfo(boletoInfo) {
@@ -36,6 +39,10 @@ const StepProvider = props => {
     setSelectedProducts([...selectedProducts.splice(index, 1)])
   }
 
+  function clearSelectedProduct() {
+    setSelectedProducts([])
+  }
+
   function handleNextStep(value) {
     setDisableNext(value)
   }
@@ -53,12 +60,14 @@ const StepProvider = props => {
       selectedProducts,
       addSelectedProduct,
       removeSelectedProduct,
+      clearSelectedProduct,
       updateBoletoInfo,
-      handlePaymentInCash,
       updateCreditInfo,
       boletoInfo,
       creditInfo,
-      paymentInCash
+      type: TYPE,
+      typeOfPayment,
+      handleTypeOfPayment
     }}>
       {props.children}
     </StepContext.Provider>

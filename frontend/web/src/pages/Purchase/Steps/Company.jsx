@@ -37,7 +37,7 @@ const Company = ({ title, ...props }) => {
     } else {
       handleNextStep(false)
     }
-  }, [selectedItemCompany])
+  }, [selectedItemCompany, handleNextStep, updateSelectedCompany])
 
   function select(index) {
     const item = document.querySelectorAll('.companies-items')[index]

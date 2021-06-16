@@ -20,12 +20,12 @@ const Credit = () => {
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { updateBoletoInfo, updateCreditInfo, handlePaymentInCash } = useContext(StepContext)
+  const { updateBoletoInfo, updateCreditInfo, type, handleTypeOfPayment } = useContext(StepContext)
 
   useEffect(() => {
     updateBoletoInfo(null)
-    handlePaymentInCash(false)
-  }, [updateBoletoInfo, handlePaymentInCash])
+    handleTypeOfPayment(type.CREDIT)
+  }, [updateBoletoInfo, handleTypeOfPayment, type])
 
   useEffect(() => {
     updateCreditInfo(state)
@@ -81,12 +81,12 @@ const Boleto = () => {
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { updateCreditInfo, updateBoletoInfo, handlePaymentInCash } = useContext(StepContext)
+  const { updateCreditInfo, updateBoletoInfo, type, handleTypeOfPayment } = useContext(StepContext)
 
   useEffect(() => {
     updateCreditInfo(null)
-    handlePaymentInCash(false)
-  }, [updateCreditInfo, handlePaymentInCash])
+    handleTypeOfPayment(type.BOLETO)
+  }, [updateCreditInfo, type, handleTypeOfPayment])
 
   useEffect(() => {
     updateBoletoInfo(state)
@@ -120,13 +120,13 @@ const Boleto = () => {
 
 const Cash = () => {
 
-  const { updateCreditInfo, handlePaymentInCash, updateBoletoInfo } = useContext(StepContext)
+  const { updateCreditInfo, type, handleTypeOfPayment, updateBoletoInfo } = useContext(StepContext)
 
   useEffect(() => {
     updateCreditInfo(null)
     updateBoletoInfo(null)
-    handlePaymentInCash(true)
-  }, [updateCreditInfo, handlePaymentInCash, updateBoletoInfo])
+    handleTypeOfPayment(type.INCASH)
+  }, [updateCreditInfo, type, handleTypeOfPayment, updateBoletoInfo])
 
   return (
     <div className="cash">
