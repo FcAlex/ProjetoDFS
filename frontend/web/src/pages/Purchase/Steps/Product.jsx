@@ -29,7 +29,8 @@ const Product = ({ title, ...props }) => {
   useEffect(() => {
     getProducts()
     handleNextStep(true)
-  }, [handleNextStep])
+    clearSelectedProduct()
+  }, [handleNextStep, clearSelectedProduct])
 
   // todo: use o hook useCallback para utilizar clearSelectedProduct() e limpar a lista de produtos
   // ao iniciar a lista, de forma que no contexto não haja produtos anteriores a atual seleção

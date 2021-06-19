@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 
 export const StepContext = createContext({})
 
@@ -39,13 +39,13 @@ const StepProvider = props => {
     setSelectedProducts([...selectedProducts.splice(index, 1)])
   }
 
-  function clearSelectedProduct() {
-    setSelectedProducts([])
-  }
+  const clearSelectedProduct = useCallback(() => {
+    setSelectedProducts(_ => [])
+  }, [])
 
-  function handleNextStep(value) {
+  const handleNextStep = useCallback((value) => {
     setDisableNext(value)
-  }
+  }, [])
 
   function updateSelectedCompany(company) {
     setSelectedCompany(company)
