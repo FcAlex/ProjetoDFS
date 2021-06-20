@@ -12,6 +12,11 @@ const StepProvider = props => {
   const [boletoInfo, setBoletoInfo] = useState(null)
   const [creditInfo, setCreditInfo] = useState(null)
   const [typeOfPayment, setTypeOfPayment] = useState(TYPE.CREDIT)
+  const [deliveryAddress, setDeliveryAddress] = useState(null)
+
+  function updateAddress(address) {
+    setDeliveryAddress(address)
+  }
 
   function handleTypeOfPayment(type) {
     if(type === TYPE.BOLETO || type === TYPE.INCASH || type === TYPE.CREDIT)
@@ -67,7 +72,9 @@ const StepProvider = props => {
       creditInfo,
       type: TYPE,
       typeOfPayment,
-      handleTypeOfPayment
+      handleTypeOfPayment,
+      deliveryAddress,
+      updateAddress
     }}>
       {props.children}
     </StepContext.Provider>

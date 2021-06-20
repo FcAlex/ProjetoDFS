@@ -3,20 +3,19 @@ import { StepContext } from '../../../contexts/steps'
 import Card from './Card'
 import If from '../../../helpers/If'
 
-const Confirmation = ({title, ...props}) => {
+const Confirmation = ({ title, ...props }) => {
 
-  const { 
-    selectedCompany, 
+  const {
+    selectedCompany,
     selectedProducts,
     typeOfPayment,
     boletoInfo,
     creditInfo,
+    deliveryAddress,
     type } = useContext(StepContext)
 
-  console.log(boletoInfo)
-
   function payment() {
-    switch(typeOfPayment) {
+    switch (typeOfPayment) {
       case type.BOLETO:
         return (
           <ul>
@@ -41,7 +40,7 @@ const Confirmation = ({title, ...props}) => {
           <p>Em dinheiro</p>
         )
       default:
-        return
+        return false
     }
   }
 
@@ -59,7 +58,7 @@ const Confirmation = ({title, ...props}) => {
         <div className="infos">
           <ul>
             {selectedProducts.map(product => (
-              <li>
+              <li key={product.id}>
                 <p> {product.name} </p>
                 <p> R$ {product.value.toFixed(2)} </p>
               </li>
@@ -72,6 +71,21 @@ const Confirmation = ({title, ...props}) => {
         <summary>Forma de Pagamento</summary>
         <div className="infos">
           {payment()}
+        </div>
+      </details>
+
+      <details>
+        <summary>Endereço</summary>
+        <div className="infos">
+          <ul>
+            <li><strong>Rua: </strong> {deliveryAddress.rua}</li>
+            <li><strong>Nr.: </strong> {deliveryAddress.numero}</li>
+            <li><strong>Complemento: </strong> {deliveryAddress.complemento}</li>
+            <li><strong>Bairro: </strong> {deliveryAddress.bairro}</li>
+            <li><strong>CEP: </strong> {deliveryAddress.cep}</li>
+            <li><strong>Cidade: </strong> {deliveryAddress.cidade}</li>
+            <li><strong>Estado: </strong> {deliveryAddress.estado}</li>
+          </ul>
         </div>
       </details>
     </Card>

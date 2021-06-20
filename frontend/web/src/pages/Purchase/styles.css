@@ -29,11 +29,16 @@
 
 .navegation {
   display: flex;
+  flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
   margin-top: 2rem;
   width: 90%;
+}
+
+.navegation button:focus {
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
 }
 
 .companies, .products {
