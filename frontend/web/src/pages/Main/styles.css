@@ -4,8 +4,7 @@
   grid-template-rows: var(--header-height) 1fr auto;
   grid-template-areas: 
     "header header"
-    "aside main"
-    "aside footer";
+    "aside main";
   height: 100vh;
 }
 
@@ -21,10 +20,6 @@
   grid-area: main;
 }
 
-.main > :nth-child(4) {
-  grid-area: footer;
-}
-
 @media (max-width: 768px) {
   .main {
     grid-template-columns: 100%;
@@ -32,7 +27,6 @@
     grid-template-areas: 
       "header"
       "aside"
-      "main"
-      "footer";
+      "main";
   }
 }
