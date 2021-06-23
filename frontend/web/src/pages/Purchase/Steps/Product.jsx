@@ -13,12 +13,13 @@ const Product = ({ title, ...props }) => {
     selectedProducts, 
     addSelectedProduct, 
     removeSelectedProduct,
+    selectedCompany,
     handleNextStep } = useContext(StepContext)
   
   async function getProducts() {
     try {
-      // const response = await api.get(`/product/company/${selectedCompany.id}`)
-      const response = await _products()
+      const response = await api.get(`/product/company/${selectedCompany.id}`)
+      // const response = await _products()
 
       setProducts(response.data)
     } catch (error) {

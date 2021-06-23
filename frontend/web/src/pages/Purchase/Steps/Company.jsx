@@ -17,8 +17,8 @@ const Company = ({ title, ...props }) => {
  
   async function getCompanies() {
     try {
-      // const response = await api.get("/company")
-      const response = await _companies("/company")
+      const response = await api.get("/company")
+      // const response = await _companies("/company")
       setCompanies(response.data)
     } catch (error) {
       if (error?.data?.status === 401) logout();

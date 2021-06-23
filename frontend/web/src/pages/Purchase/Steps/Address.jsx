@@ -72,7 +72,7 @@ const SelectState = ({value, name, onChange}) => {
       <option value="AP">Amapá</option>
       <option value="AM">Amazonas</option>
       <option value="BA">Bahia</option>
-      <option value="CE" selected>Ceará</option>
+      <option value="CE" defaultValue>Ceará</option>
       <option value="DF">Distrito Federal</option>
       <option value="ES">Espírito Santo</option>
       <option value="GO">Goiás</option>

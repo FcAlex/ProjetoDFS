@@ -44,13 +44,14 @@ const Login = () => {
       toastError("Preencha e-mail e senha para continuar")
     } else {
       try {
-        // const response = await api.post("/authentication", { email, password })
-        const response = await signIn() // teste sem backend
-        // const { token, user } = response?.data?.result
-        const { token, user } = response.result
+        const response = await api.post("/authentication", { email, password })
+        // const response = await signIn() // teste sem backend
+        const { token, user } = response?.data?.result
+        // const { token, user } = response.result
         login(token, user)
         window.location.reload()
       } catch (err) {
+        console.log(err.response)
         toastError("Houve um problema com o login, verifique suas credenciais.")
       }
     }
