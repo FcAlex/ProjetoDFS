@@ -45,7 +45,7 @@ const Confirmation = ({ title, ...props }) => {
   }
 
   return (
-    <Card title={title} navigation={props}>
+    <Card title={title} navigation={props} className="confirmation">
       <details>
         <summary>Dados da Loja</summary>
         <div className="infos">
@@ -59,8 +59,26 @@ const Confirmation = ({ title, ...props }) => {
           <ul>
             {selectedProducts.map(product => (
               <li key={product.id}>
-                <p> {product.name} </p>
-                <p> R$ {product.value.toFixed(2)} </p>
+                <table className="products-selected">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Produto</th>
+                      <th>Valor</th>
+                      <th>Descrição</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedProducts.map(product => (
+                      <tr key={product.id}>
+                        <td>{product.id}</td>
+                        <td> {product.name} </td>
+                        <td> R$ {product.value.toFixed(2)} </td>
+                        <td> {product.description} </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </li>
             ))}
           </ul>
@@ -69,7 +87,7 @@ const Confirmation = ({ title, ...props }) => {
 
       <details>
         <summary>Forma de Pagamento</summary>
-        <div className="infos">
+        <div className="infos method-payment">
           {payment()}
         </div>
       </details>
@@ -77,7 +95,7 @@ const Confirmation = ({ title, ...props }) => {
       <details>
         <summary>Endereço</summary>
         <div className="infos">
-          <ul>
+          <ul className="endereco-infos">
             <li><strong>Rua: </strong> {deliveryAddress.rua}</li>
             <li><strong>Nr.: </strong> {deliveryAddress.numero}</li>
             <li><strong>Complemento: </strong> {deliveryAddress.complemento}</li>

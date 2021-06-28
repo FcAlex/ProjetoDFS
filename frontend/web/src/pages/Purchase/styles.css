@@ -1,9 +1,9 @@
-
 .purchase {
   padding: 1rem;
 }
 
-.purchase h1:not(.title-cash), .card h2 {
+.purchase h1:not(.title-cash),
+.card h2 {
   font-size: 1.5rem;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
@@ -41,7 +41,8 @@
   box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
 }
 
-.companies, .products {
+.companies,
+.products {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 2rem;
@@ -71,7 +72,8 @@
   text-align: center;
 }
 
-.products li h3, .products li p {
+.products li h3,
+.products li p {
   text-align: left;
   width: 100%;
   font-weight: 500;
@@ -122,9 +124,9 @@
 
 .payment .info-payment {
   display: grid;
-  grid-template-areas: 
-    "cardNumber cardNumber" 
-    "cardholder cardholder" 
+  grid-template-areas:
+    "cardNumber cardNumber"
+    "cardholder cardholder"
     "expirationDate cvc";
 }
 
@@ -279,11 +281,48 @@
   width: 100%;
   border-radius: 5px;
   outline: none;
-  
 }
-
 
 details {
   cursor: pointer;
   user-select: none;
+}
+
+.confirmation details {
+  padding: 1rem;
+}
+
+.confirmation details .infos {
+  margin-top: 0.5rem;
+}
+
+.products-selected {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.products-selected td,
+.products-selected th {
+  padding: 5px;
+}
+
+.products-selected tr {
+  width: 100%;
+  border-bottom: 1px solid #eee;
+}
+
+.method-payment li {
+  margin: 0.5rem 0;
+}
+
+.method-payment h3 {
+  font-weight: 600;
+}
+
+.endereco-infos li {
+  margin: 0.5rem 0;
+}
+
+.endereco-infos li strong {
+  font-weight: 600;
 }
