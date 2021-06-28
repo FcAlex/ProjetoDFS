@@ -2,19 +2,36 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Persistence.Contexts;
 
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210628232516_AddBlPurchasesAndProducts")]
+    partial class AddBlPurchasesAndProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.4");
+
+            modelBuilder.Entity("ProductPurchase", b =>
+                {
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PurchasesId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProductsId", "PurchasesId");
+
+                    b.HasIndex("PurchasesId");
+
+                    b.ToTable("ProductPurchase");
+                });
 
             modelBuilder.Entity("Server.Domains.Models.Company", b =>
                 {
@@ -147,7 +164,7 @@ namespace Server.Migrations
                             Id = 101,
                             Address = "Rua dos Bobos",
                             Cep = "63.640-000",
-                            Date = new DateTime(2021, 6, 28, 20, 46, 40, 756, DateTimeKind.Local).AddTicks(1278),
+                            Date = new DateTime(2021, 6, 28, 20, 25, 15, 254, DateTimeKind.Local).AddTicks(6153),
                             Name = "Compra Semanal",
                             Observation = "n.a",
                             PaymentMethod = (byte)1,
@@ -155,21 +172,6 @@ namespace Server.Migrations
                             UserId = 101,
                             Value = 500f
                         });
-                });
-
-            modelBuilder.Entity("Server.Domains.Models.PurchaseProduct", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PurchaseId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ProductId", "PurchaseId");
-
-                    b.HasIndex("PurchaseId");
-
-                    b.ToTable("PurchaseProducts");
                 });
 
             modelBuilder.Entity("Server.Domains.Models.User", b =>
@@ -213,6 +215,21 @@ namespace Server.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ProductPurchase", b =>
+                {
+                    b.HasOne("Server.Domains.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Server.Domains.Models.Purchase", null)
+                        .WithMany()
+                        .HasForeignKey("PurchasesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Server.Domains.Models.Product", b =>
                 {
                     b.HasOne("Server.Domains.Models.Company", "Company")
@@ -235,38 +252,9 @@ namespace Server.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Server.Domains.Models.PurchaseProduct", b =>
-                {
-                    b.HasOne("Server.Domains.Models.Product", "Product")
-                        .WithMany("PurchaseProducts")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Server.Domains.Models.Purchase", "Purchase")
-                        .WithMany("PurchaseProducts")
-                        .HasForeignKey("PurchaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Purchase");
-                });
-
             modelBuilder.Entity("Server.Domains.Models.Company", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Server.Domains.Models.Product", b =>
-                {
-                    b.Navigation("PurchaseProducts");
-                });
-
-            modelBuilder.Entity("Server.Domains.Models.Purchase", b =>
-                {
-                    b.Navigation("PurchaseProducts");
                 });
 
             modelBuilder.Entity("Server.Domains.Models.User", b =>
