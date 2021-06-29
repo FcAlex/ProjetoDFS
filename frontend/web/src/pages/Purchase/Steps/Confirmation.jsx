@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { StepContext } from '../../../contexts/steps'
 import Card from './Card'
+import Input from '../../../components/Input'
 import If from '../../../helpers/If'
 
 const Confirmation = ({ title, ...props }) => {
@@ -12,7 +13,11 @@ const Confirmation = ({ title, ...props }) => {
     boletoInfo,
     creditInfo,
     deliveryAddress,
-    type } = useContext(StepContext)
+    type,
+    name,
+    handleName,
+    observation,
+    handleObservation } = useContext(StepContext)
 
   function payment() {
     switch (typeOfPayment) {
@@ -46,6 +51,18 @@ const Confirmation = ({ title, ...props }) => {
 
   return (
     <Card title={title} navigation={props} className="confirmation">
+
+      <div className="extras">
+        <Input type="text" label="Nome Identificador" value={name} name="nome"
+          onChange={handleName}
+        />
+
+        <div className="obs">
+          <label>Observações:</label>
+          <textarea value={observation} name="obs" onChange={handleObservation}></textarea>
+        </div>
+      </div>
+
       <details>
         <summary>Dados da Loja</summary>
         <div className="infos">

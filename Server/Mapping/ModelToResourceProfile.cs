@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace Server.Mapping
 {
-    public class ModelToResourceProfile : Profile
+  public class ModelToResourceProfile : Profile
+  {
+    public ModelToResourceProfile()
     {
-        public ModelToResourceProfile()
-        {
-            CreateMap<Purchase, PurchaseResource>();
-            CreateMap<Company, CompanyResource>();
-            CreateMap<Product, ProductResource>();
-            CreateMap<User, UserResource>();
-        }
+      CreateMap<Purchase, PurchaseResource>();
+      CreateMap<Company, CompanyResource>();
+      CreateMap<Product, ProductResource>();
+      CreateMap<User, UserResource>();
+      CreateMap<PurchaseProduct, PurchaseProductResource>();
     }
+  }
 }

@@ -59,7 +59,7 @@ const Login = () => {
 
   function handleIconPassword(e) {
     const input = document.getElementById("iPassword")
-    if(e.target.classList.contains("fa-eye-slash")){
+    if (e.target.classList.contains("fa-eye-slash")) {
       input.type = "text"
       e.target.classList.replace("fa-eye-slash", "fa-eye")
     } else {
@@ -70,7 +70,7 @@ const Login = () => {
 
   return (
     <div className="login">
-      <img src={logo} alt="Logo SisVendas"/>
+      <img src={logo} alt="Logo SisVendas" />
       <form className="form" onSubmit={handleLogin}>
         <h1>Faça Login para continuar</h1>
         <Input icon="user" value={login.email} onChange={setEmail}
@@ -78,9 +78,9 @@ const Login = () => {
         <div className="handleVisiblePassword">
           <Input id="iPassword"
             icon="lock"
-            value={login.password} 
-            onChange={setPassword} 
-            placeholder="Digite sua senha" 
+            value={login.password}
+            onChange={setPassword}
+            placeholder="Digite sua senha"
             type="password" label="Sua Senha" />
 
           <i className="fas fa-eye-slash" onClick={handleIconPassword}></i>

@@ -326,3 +326,25 @@ details {
 .endereco-infos li strong {
   font-weight: 600;
 }
+
+.extras {
+  margin: 0 auto;
+  width: 80%;
+  margin-bottom: 1rem;
+}
+
+.extras textarea {
+  border: 1px solid #ced4da;
+  font-size: 1rem;
+  padding: 13px;
+  width: 100%;
+  border-radius: 5px;
+  outline: none;
+  resize: none;
+  height: 7rem;
+  margin-top: 5px;
+}
+
+.extras .obs label {
+  font-size: 0.9rem;
+}
