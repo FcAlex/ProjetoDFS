@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { StepContext } from '../../../contexts/steps'
 import Card from './Card'
 import Input from '../../../components/Input'
@@ -18,6 +18,11 @@ const Confirmation = ({ title, ...props }) => {
     handleName,
     observation,
     handleObservation } = useContext(StepContext)
+
+  useEffect(() => {
+    handleName('')
+    handleObservation('')
+  }, [])
 
   function payment() {
     switch (typeOfPayment) {
@@ -54,12 +59,13 @@ const Confirmation = ({ title, ...props }) => {
 
       <div className="extras">
         <Input type="text" label="Nome Identificador" value={name} name="nome"
-          onChange={handleName}
+          onChange={e => handleName(e.target.value)}
         />
 
         <div className="obs">
           <label>Observações:</label>
-          <textarea value={observation} name="obs" onChange={handleObservation}></textarea>
+          <textarea value={observation} name="obs"
+            onChange={e => handleObservation(e.target.value)}></textarea>
         </div>
       </div>
 

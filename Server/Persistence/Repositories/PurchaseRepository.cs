@@ -42,7 +42,7 @@ namespace Server.Persistence.Repositories
     public async Task<IEnumerable<Purchase>> GetPurchaseByUserAsync(int id)
     {
       var purchase = await _context.Purchases
-          .Where(purchase => purchase.Id == id).ToListAsync();
+          .Where(purchase => purchase.UserId == id).ToListAsync();
       return purchase;
     }
   }

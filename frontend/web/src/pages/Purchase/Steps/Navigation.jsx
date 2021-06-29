@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import Button from '../../../components/Button'
 import { StepContext } from '../../../contexts/steps'
 import { toastError, toastSuccess } from '../../../helpers'
-import api from '../../../services/api'
 
 import { useToasts } from 'react-toast-notifications'
 

@@ -19,12 +19,12 @@ const StepProvider = props => {
   const [observation, setObservation] = useState('')
   const [name, setName] = useState('')
 
-  function handleObservation(e) {
-    setObservation(e.target.value)
+  function handleObservation(obs) {
+    setObservation(obs)
   }
 
-  function handleName(e) {
-    setName(e.target.value)
+  function handleName(newName) {
+    setName(newName)
   }
 
   function updateAddress(address) {
