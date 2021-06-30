@@ -24,7 +24,6 @@ const Menu = props => {
     <>
       <span className="tituloMenu" onClick={handleMenu}>Menu <i className="fas fa-bars"></i> </span>
       <ul className="menu" id="iMenu">
-        <MenuItem icon="user" label="Cadastro" />
         <MenuTree icon="shopping-cart" label="Compras">
           <MenuItem path="/purchase" label="Comprar" icon="thumbtack" />
           <MenuItem path="/orders" label="Pedidos" icon="thumbtack" />
