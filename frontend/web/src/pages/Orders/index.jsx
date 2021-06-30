@@ -123,6 +123,67 @@ const Order = props => {
     setShowModal(!value)
   }
 
+  async function buttonDetails(purchase) {
+
+    try {
+      const response = await api.get(`/product/purchase/${purchase.id}`)
+      const products = response.data ?? []
+
+      dispatch({
+        type: 'content', value: (
+          <>
+            <ul>
+              {products.map(product => (
+                <li key={product.id}>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Produto</th>
+                        <th>Valor</th>
+                        <th>Descrição</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {products.map(product => (
+                        <tr key={product.id}>
+                          <td>{product.id}</td>
+                          <td> {product.name} </td>
+                          <td> R$ {product.value.toFixed(2)} </td>
+                          <td> {product.description} </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      })
+
+      dispatch({
+        type: 'footer', value: (
+          <>
+            <Button bg="gray" onClick={_ => close(true)}>Voltar</Button>
+          </>
+        )
+      })
+
+      dispatch({
+        type: 'title', value: (
+          <>
+            <i className="fas fa-exclamation-circle"></i> Lista de Produtos
+          </>
+        )
+      })
+
+      close(false)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   function buttonDelete(purchase) {
     dispatch({
       type: 'content', value: (
@@ -156,7 +217,7 @@ const Order = props => {
     dispatch({
       type: 'title', value: (
         <>
-          <i class="fas fa-exclamation-circle"></i> Aviso
+          <i className="fas fa-exclamation-circle"></i> Aviso
         </>
       )
     })
@@ -175,9 +236,10 @@ const Order = props => {
           <td>{definePaymentMethod(purchase)}</td>
           <td>{format(new Date(purchase.date), 'dd/MM/yyyy')}</td>
           <td>
-            <Button icon="plus" title="Ver mais detalhes"></Button>
-            <Button icon="file-pdf" title="Gerar PDF" onClick={e => generatePDF()}></Button>
+            <Button icon="shopping-bag" title="Listar Compras" onClick={e => buttonDetails(purchase)}>
+            </Button>
             <Button icon="tag" title="Editar Nome do pedido"></Button>
+            <Button icon="file-pdf" title="Gerar PDF" onClick={e => generatePDF()}></Button>
             <Button icon="trash" title="Deletar pedido" onClick={e => buttonDelete(purchase)}></Button>
           </td>
         </tr>
