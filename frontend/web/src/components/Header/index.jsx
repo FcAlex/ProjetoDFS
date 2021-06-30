@@ -11,7 +11,7 @@ const Header = () => {
     logout()
     window.location.reload()
   }
-  
+
   return (
     <header className="header">
       <div className="logo">
@@ -24,8 +24,8 @@ const Header = () => {
         <span>Bem vindo, <strong>{getData()?.name}</strong></span>
       </div>
       <Button
-        icon="sign-out-alt" 
-        bg="transparent" 
+        icon="sign-out-alt"
+        bg="transparent"
         onClick={handleLogout} />
     </header>
   )

@@ -23,6 +23,10 @@ namespace Server.Resources.Saving
     public PurchaseStatus Status { get; set; }
 
     [Required]
+    [StringLength(50)]
+    public string Name { get; set; }
+
+    [Required]
     [StringLength(100)]
     public string Observation { get; set; }
 

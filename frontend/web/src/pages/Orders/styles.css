@@ -22,12 +22,8 @@
   color: #e74c3c;
 }
 
-.orders .fa-shopping-bag {
-  color: #f1c40f;
-}
-
 .orders .fa-tag {
-  color: #2ecc71;
+  color: #f1c40f;
 }
 
 .orders .fa-trash {
@@ -61,4 +57,18 @@
   margin-bottom: 1rem;
   border-bottom: 1px solid #eee;
   text-align: center;
+}
+
+.fa-exclamation-circle {
+  font-size: 1.2rem;
+}
+
+.modal-content ul {
+  line-height: 1.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.modal-content ul strong {
+  font-weight: 600;
 }

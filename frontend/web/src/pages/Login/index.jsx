@@ -8,6 +8,7 @@ import { useToasts } from 'react-toast-notifications'
 
 import './styles.css'
 import useAuth from "../../hooks/useAuth"
+import { toastError } from "../../helpers"
 
 const INITIAL_VALUE = {
   email: "",
@@ -20,13 +21,6 @@ const Login = () => {
   const { addToast } = useToasts()
 
   const { login } = useAuth()
-
-  function toastError(msg) {
-    addToast(msg, {
-      appearance: 'error',
-      autoDismiss: true,
-    })
-  }
 
   function setEmail(event) {
     setUserData({ ...userData, email: event.target.value })
@@ -52,7 +46,7 @@ const Login = () => {
         window.location.reload()
       } catch (err) {
         console.log(err.response)
-        toastError("Houve um problema com o login, verifique suas credenciais.")
+        toastError(addToast, "Houve um problema com o login, verifique suas credenciais.")
       }
     }
   }

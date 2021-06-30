@@ -14,18 +14,18 @@ const Button = ({ icon, bg, title, ...props }) => {
   }
 
   const styleContent = {
-    width: 'auto', 
-    padding: '5px 10px', 
-    display: 'flex', 
+    width: 'auto',
+    padding: '5px 10px',
+    display: 'flex',
     alignItems: 'center',
-    userSelect: 'none' 
+    userSelect: 'none'
   }
 
   if (title) return (
-    <Popup 
-      trigger={btnRender()} 
-      position="bottom center" 
-      on="hover" 
+    <Popup
+      trigger={btnRender()}
+      position="top center"
+      on="hover"
       offsetX={15}
       offsetY={-3}
       contentStyle={styleContent}
@@ -35,13 +35,13 @@ const Button = ({ icon, bg, title, ...props }) => {
     </Popup>
   )
 
- /* 
- width: auto !important;
-  padding: 5px 10px;
-  display: flex !important;
-  align-items: center;
-  user-select: none;
- */
+  /* 
+  width: auto !important;
+   padding: 5px 10px;
+   display: flex !important;
+   align-items: center;
+   user-select: none;
+  */
   else return btnRender()
 }
 

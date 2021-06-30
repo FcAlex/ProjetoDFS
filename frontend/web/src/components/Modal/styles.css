@@ -1,8 +1,21 @@
 .modal {
   padding: 0.8rem;
+  width: 50%;
+  height: 50%;
+  background-color: #fff;
+  z-index: 999;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
 }
 
 .modal-header {
+  flex: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,17 +23,25 @@
   margin-bottom: 0.5rem;
 }
 
+.modal-content {
+  margin: 1rem 0;
+}
+
 .modal-header h1 {
-  font-size: 1.2rem;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.4rem;
   font-weight: 600;
 }
 
-.modal-header i {
+.modal-header .fa-times-circle {
   color: var(--red);
   font-size: 1.3rem;
 }
 
 .modal-footer {
+  flex: auto;
   border-top: 1.2px solid #eee;
   margin-top: 0.5rem;
   padding-top: 0.5rem;

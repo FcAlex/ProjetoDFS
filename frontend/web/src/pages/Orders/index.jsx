@@ -2,35 +2,61 @@ import { format } from 'date-fns'
 import Button from '../../components/Button'
 
 import api from '../../services/api'
-import { purchases as getPurchases } from '../../services/api_test'
 import useAuth from '../../hooks/useAuth'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useReducer, useState } from 'react'
 import { logout } from '../../services/auth'
+import { toastError, toastSuccess } from '../../helpers'
+import { useToasts } from 'react-toast-notifications'
 
 import Input from '../../components/Input'
 
 import './styles.css'
+import Modal from '../../components/Modal'
+
+const initialState = {
+  contentModal: '',
+  footerModal: '',
+  titleModal: ''
+}
 
 const Order = props => {
 
   const [filterText, setFilterText] = useState('')
   const [purchases, setPurchases] = useState([])
   const [filterPurchase, setFilterPurchase] = useState([])
+  const [showModal, setShowModal] = useState(false)
+  const [modal, dispatch] = useReducer(reducer, initialState);
   const { getData } = useAuth()
   const { id } = getData()
+  const { addToast } = useToasts()
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case 'content':
+        return { ...state, contentModal: action.value }
+      case 'footer':
+        return { ...state, footerModal: action.value }
+      case 'title':
+        return { ...state, titleModal: action.value }
+      default:
+        return state
+    }
+  }
+
+  const getPurchases = useCallback(async () => {
+    try {
+      const response = await api.get(`/purchase/user/${id}`)
+      // const response = await getPurchases()
+      setPurchases(response.data)
+      setFilterPurchase(response.data)
+    } catch (error) {
+      if (error.response?.status === 401) logout()
+    }
+  }, [id])
 
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await api.get(`/purchase/user/${id}`)
-        // const response = await getPurchases()
-        setPurchases(response.data)
-        setFilterPurchase(response.data)
-      } catch (error) {
-        if (error.response.status === 401) logout()
-      }
-    })()
-  }, [id])
+    getPurchases()
+  }, [getPurchases])
 
   useEffect(() => {
     if (filterText !== '') {
@@ -82,6 +108,62 @@ const Order = props => {
 
   }
 
+  async function deleteOrder(id) {
+    try {
+      await api.delete(`/purchase/${id}`)
+
+      toastSuccess(addToast, "Pedido deletado com sucesso!")
+      getPurchases()
+    } catch (err) {
+      toastError(addToast, "Algo deu errado!")
+    }
+  }
+
+  function close(value) {
+    setShowModal(!value)
+  }
+
+  function buttonDelete(purchase) {
+    dispatch({
+      type: 'content', value: (
+        <>
+          <p>Deseja realmente deletar esse pedido?</p>
+          <p>Essa ação é irreversível</p>
+
+          <ul>
+            <li><strong>Nome:</strong> {purchase.name}</li>
+            <li><strong>Valor Total:</strong> {purchase.value}</li>
+            <li><strong>Data:</strong> {format(new Date(purchase.date), 'dd/MM/yyyy')}</li>
+          </ul>
+        </>
+      )
+    })
+
+    dispatch({
+      type: 'footer', value: (
+        <>
+          <Button bg="red" onClick={_ => {
+            deleteOrder(purchase.id)
+            close(true)
+          }}>
+            Deletar
+          </Button>
+          <Button bg="gray" onClick={_ => close(true)}>Cancelar</Button>
+        </>
+      )
+    })
+
+    dispatch({
+      type: 'title', value: (
+        <>
+          <i class="fas fa-exclamation-circle"></i> Aviso
+        </>
+      )
+    })
+
+    close(false)
+  }
+
   function renderRows() {
     return (
       filterPurchase.map(purchase => (
@@ -95,9 +177,8 @@ const Order = props => {
           <td>
             <Button icon="plus" title="Ver mais detalhes"></Button>
             <Button icon="file-pdf" title="Gerar PDF" onClick={e => generatePDF()}></Button>
-            <Button icon="shopping-bag" title="Listar Compras"></Button>
             <Button icon="tag" title="Editar Nome do pedido"></Button>
-            <Button icon="trash" title="Deletar pedido"></Button>
+            <Button icon="trash" title="Deletar pedido" onClick={e => buttonDelete(purchase)}></Button>
           </td>
         </tr>
       ))
@@ -137,6 +218,9 @@ const Order = props => {
           </tbody>
         </table>
       </div>
+      <Modal show={showModal} close={close} title={modal.titleModal} footer={modal.footerModal}>
+        {modal.contentModal}
+      </Modal>
     </main>
   )
 }
