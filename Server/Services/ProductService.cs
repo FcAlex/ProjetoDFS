@@ -27,6 +27,10 @@ namespace Server.Services
     {
       return await _productRepository.GetProductsByCompanyId(companyId);
     }
+    public async Task<IEnumerable<Product>> GetProductsByPurchaseId(int purchaseId)
+    {
+      return await _productRepository.GetProductsByPurchaseId(purchaseId);
+    }
     public async Task<Response<Product>> SaveAsync(Product product)
     {
       try

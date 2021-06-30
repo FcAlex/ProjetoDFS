@@ -29,6 +29,18 @@ namespace Server.Persistence.Repositories
       return await _context.Products.Where(product => product.CompanyId == companyId).ToListAsync();
     }
 
+    public async Task<IEnumerable<Product>> GetProductsByPurchaseId(int purchaseId)
+    {
+      return await _context.Products.FromSqlRaw($@"
+        select * 
+        from Products 
+        where Id = (
+          select ProductId 
+          from PurchaseProducts 
+          where purchaseId = {purchaseId})
+      ").ToListAsync();
+    }
+
     public async Task<IEnumerable<Product>> ListAllAsync()
     {
       var products = await _context.Products.ToListAsync();

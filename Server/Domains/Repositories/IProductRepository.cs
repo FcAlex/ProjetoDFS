@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Server.Domains.Repositories
 {
-    public interface IProductRepository : IBaseRepository<Product>
-    {
-        Task<IEnumerable<Product>> GetProductsByCompanyId(int companyId);
-    }
+  public interface IProductRepository : IBaseRepository<Product>
+  {
+    Task<IEnumerable<Product>> GetProductsByCompanyId(int companyId);
+    Task<IEnumerable<Product>> GetProductsByPurchaseId(int purchaseId);
+
+  }
 }
