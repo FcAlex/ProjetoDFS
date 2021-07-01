@@ -1,5 +1,4 @@
 import { createContext, useCallback, useState } from "react";
-import { toastError } from "../helpers";
 import api from "../services/api";
 import { getData } from "../services/auth";
 
@@ -19,13 +18,13 @@ const StepProvider = props => {
   const [observation, setObservation] = useState('')
   const [name, setName] = useState('')
 
-  function handleObservation(obs) {
+  const handleObservation = useCallback((obs) => {
     setObservation(obs)
-  }
+  }, [])
 
-  function handleName(newName) {
+  const handleName = useCallback((newName) => {
     setName(newName)
-  }
+  }, [])
 
   function updateAddress(address) {
     setDeliveryAddress(address)
@@ -91,7 +90,10 @@ const StepProvider = props => {
       purchaseProducts: selectedProducts.map(prod => ({ ProductId: prod.id }))
     }
 
-    api.post('/purchase', purchase)
+    try {
+      await api.post('/purchase', purchase)
+    } catch (e) {
+    }
   }
 
   return (

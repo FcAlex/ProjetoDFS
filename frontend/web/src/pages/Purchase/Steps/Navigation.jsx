@@ -4,19 +4,23 @@ import { StepContext } from '../../../contexts/steps'
 import { toastError, toastSuccess } from '../../../helpers'
 
 import { useToasts } from 'react-toast-notifications'
+import { useHistory } from 'react-router'
 
 const Navigation = (props) => {
 
   const { disableNext, sendPurchase } = useContext(StepContext)
   const { addToast } = useToasts()
+  const history = useHistory()
 
   async function postPurchase() {
     try {
       await sendPurchase()
-      toastSuccess(addToast, "Compra cadastrada com sucesso!")
+      history.push('/')
     } catch (e) {
-      toastError(addToast, "Ocorreu algo inesperado! ", e.response.status)
+      console.log(e)
+      toastError(addToast, "Ocorreu algo inesperado! ", e.response?.status)
     }
+
   }
 
   return (

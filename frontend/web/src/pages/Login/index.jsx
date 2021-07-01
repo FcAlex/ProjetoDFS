@@ -2,7 +2,6 @@ import { useState } from "react"
 import Button from "../../components/Button"
 import Input from "../../components/Input"
 import api from "../../services/api"
-import { signIn } from "../../services/api_test"
 import logo from '../../assets/logo.svg'
 import { useToasts } from 'react-toast-notifications'
 

@@ -8,8 +8,6 @@ import { logout } from '../../services/auth'
 import { toastError, toastSuccess } from '../../helpers'
 import { useToasts } from 'react-toast-notifications'
 
-import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-
 import Input from '../../components/Input'
 
 import './styles.css'
@@ -104,10 +102,6 @@ const Order = props => {
       default:
         return 'Erro'
     }
-  }
-
-  function generatePDF() {
-
   }
 
   async function deleteOrder(id) {
@@ -227,33 +221,6 @@ const Order = props => {
     close(false)
   }
 
-  const styles = StyleSheet.create({
-    page: {
-      flexDirection: 'row',
-    },
-    section: {
-      margin: 10,
-      padding: 10,
-      flexGrow: 1
-    },
-    title: {
-      textAlign: 'center'
-    }, 
-    order: {
-      fontSize: 14
-    }
-  });
-
-  const PdfDocument = ({ purchase }) => {
-    return <Document>
-      <Page size="A4" style={styles.page}>
-        <View style={styles.section}>
-          <Text style={styles.title}>{purchase.name ?? 'Compras Realizadas'}</Text>
-        </View>
-      </Page>
-    </Document>
-  }
-
   function renderRows() {
     return (
       filterPurchase.map(purchase => (
@@ -267,18 +234,6 @@ const Order = props => {
           <td>
             <Button icon="shopping-bag" title="Listar Compras" onClick={e => buttonDetails(purchase)}>
             </Button>
-            <Button icon="tag" title="Editar Nome do pedido"></Button>
-            {/* <Button icon="file-pdf" title="Gerar PDF" onClick={e => generatePDF()}></Button>
-             */}
-
-            <PDFDownloadLink
-              document={<PdfDocument purchase={purchase}/>}
-              fileName="movielist.pdf"
-            >
-              {() =>
-                <Button icon="file-pdf" title="Gerar PDF" onClick={_ => generatePDF()}></Button>
-              }
-            </PDFDownloadLink>
             <Button icon="trash" title="Deletar pedido" onClick={_ => buttonDelete(purchase)}></Button>
           </td>
         </tr>

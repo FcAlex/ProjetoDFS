@@ -22,7 +22,7 @@ const Confirmation = ({ title, ...props }) => {
   useEffect(() => {
     handleName('')
     handleObservation('')
-  }, [])
+  }, [handleName, handleObservation])
 
   function payment() {
     switch (typeOfPayment) {
